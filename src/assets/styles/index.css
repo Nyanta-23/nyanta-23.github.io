@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+  }
+
+
+
+  :root {
+    /* Light mode (default) */
+    --color-surface: 252 248 248;
+    --color-surface-dim: 220 217 217;
+    --color-surface-bright: 252 248 248;
+    --color-surface-container-lowest: 255 255 255;
+    --color-surface-container-low: 246 243 243;
+    --color-surface-container: 240 237 237;
+    --color-surface-container-high: 235 231 231;
+    --color-on-surface: 28 27 28;
+    --color-on-surface-variant: 68 71 74;
+
+    --color-outline: 117 119 122;
+    --color-outline-variant: 196 199 202;
+
+    --color-primary: 16 21 24;
+    --color-on-primary: 255 255 255;
+    --color-primary-container: 36 41 45;
+    --color-on-primary-container: 139 144 149;
+
+    --color-secondary: 92 95 96;
+    --color-on-secondary: 255 255 255;
+    --color-secondary-container: 222 224 226;
+    --color-on-secondary-container: 96 99 101;
+
+    --color-background: 252 248 248;
+    --color-on-background: 28 27 28;
+    --color-background-ghost: 250 251 253;
+    --color-charcoal-ink: 36 41 45;
+    --color-pure-white: 255 255 255;
+
+    --shadow-neu-inset: inset 3px 3px 6px 0px rgb(114, 114, 114), inset -3px -3px 6px 1px rgba(128, 120, 120, 0.5);
+    --shadow-elevated: 0px 2px 4px 0px rgba(14, 30, 37, 0.12), 0px 2px 16px 0px rgba(14, 30, 37, 0.32);
+    --shadow-floating: 0px 12px 28px 0px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .dark {
+    /* Dark mode: hierarki dibalik, charcoal-ink jadi kanvas utama */
+    --color-surface: 36 41 45;
+    --color-surface-dim: 28 27 28;
+    --color-surface-bright: 60 59 59;
+    --color-surface-container-lowest: 20 24 27;
+    --color-surface-container-low: 30 34 37;
+    --color-surface-container: 40 44 47;
+    --color-surface-container-high: 50 54 57;
+    --color-on-surface: 255 255 255;
+    --color-on-surface-variant: 196 199 202;
+
+    --color-outline: 117 119 122;
+    --color-outline-variant: 68 71 74;
+
+    --color-primary: 255 255 255;
+    --color-on-primary: 16 21 24;
+    --color-primary-container: 60 59 59;
+    --color-on-primary-container: 196 199 202;
+
+    --color-secondary: 222 224 226;
+    --color-on-secondary: 36 41 45;
+    --color-secondary-container: 68 71 74;
+    --color-on-secondary-container: 222 224 226;
+
+    --color-background: 36 41 45;
+    --color-on-background: 255 255 255;
+    --color-background-ghost: 44 48 51;
+    --color-charcoal-ink: 36 41 45;
+    --color-pure-white: 255 255 255;
+
+    --shadow-neu-inset: inset 3px 3px 15px 0px rgb(15, 15, 15), inset -3px -3px 12px 1px rgba(0, 5, 5, 0.5);
+    --shadow-elevated: 0px 2px 4px 0px rgba(0, 0, 0, 0.3), 0px 2px 16px 0px rgba(0, 0, 0, 0.5);
+    --shadow-floating: 0px 12px 28px 0px rgba(0, 0, 0, 0.5), 0px 2px 4px 0px rgba(0, 0, 0, 0.3), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.08);
+  }
+}
+
+@layer components {
+  .nav-btn {
+    @apply transition-all duration-150 hover:shadow-neu-inset active:shadow-neu-inset active:scale-90;
+  }
+
+  .nav-btn-cv {
+    @apply transition-all duration-150 hover:bg-on-secondary-container
+  }
+}
+
+/* body {
+  background-color: #171515;
+} */
+
+/* 
+.active{
+  bottom: -4rem;
+} 
+*/
+
+body {
+  @apply bg-background transition-colors duration-300;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+}
