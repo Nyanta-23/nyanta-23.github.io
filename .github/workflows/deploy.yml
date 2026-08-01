@@ -41,7 +41,7 @@ jobs:
            VITE_BRANCH_GITHUB: ${{ vars.VITE_BRANCH_GITHUB }}
 
       - name: Upload Pages Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: production-files
           path: ./dist
@@ -60,5 +60,5 @@ jobs:
     steps:
       - name: Deploy to Github Pages
         id: deployment
-        uses: actions/deploy-pages@4
+        uses: actions/deploy-pages@3
         
