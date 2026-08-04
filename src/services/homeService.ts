@@ -1,11 +1,11 @@
 import { getGidFromNavigationSheet } from "../helpers/helper";
 import { keyValueParser } from "../parsers/keyValueParser";
 import { tableParser } from "../parsers/tableParser";
-import { HomeData, Role } from "../types/page";
+// import { HomeData, Role } from "../types/page";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const home = async (): Promise<HomeData | undefined> => {
+export const homeService = async (): Promise<HomeData | undefined> => {
   try {
     // Raw Data
 
@@ -56,17 +56,17 @@ export const home = async (): Promise<HomeData | undefined> => {
       keyValueParser<Omit<HomeData, "roles">>(pullProfileHtml);
 
     const parseRoles = tableParser<Role>(pullRolesHtml);
-    const parseProjects = tableParser(pullProjectsHtml);
-    const parseTypeOfProjects = tableParser(pullTypeOfProjectsHtml);
-    const parseSkills = tableParser(pullSkillsHtml);
+    const parseProjects = tableParser<Project>(pullProjectsHtml);
+    const parseTypeOfProjects = tableParser<Type>(pullTypeOfProjectsHtml);
+    const parseSkills = tableParser<Skill>(pullSkillsHtml);
 
-    const parseProjectRoles = tableParser(pullProjectRolesHtml);
-    const parseProjectTypes = tableParser(pullProjectTypesHtml);
-    const parseProjectStacks = tableParser(pullProjectStacksHtml);
+    const parseProjectRoles = tableParser<ProjectRole>(pullProjectRolesHtml);
+    const parseProjectTypes = tableParser<ProjectType>(pullProjectTypesHtml);
+    const parseProjectStacks = tableParser<ProjectStack>(pullProjectStacksHtml);
 
     // Manage Data
 
-    const portfolioHighlight = parseProjects
+    const projectNewest = parseProjects
       .map((project) => ({
         ...project,
         roles: parseProjectRoles
@@ -97,12 +97,12 @@ export const home = async (): Promise<HomeData | undefined> => {
       .sort((a, b) => Number(b.year) - Number(a.year))
       .slice(0, 3);
 
-    console.log(portfolioHighlight);
 
     return {
       ...parseProfile,
       roles: parseRoles,
-      portfolio: portfolioHighlight,
+      projects: projectNewest,
+      skills: parseSkills
     };
   } catch (err) {
     if (err instanceof Error) {

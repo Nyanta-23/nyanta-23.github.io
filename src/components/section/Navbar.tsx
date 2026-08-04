@@ -24,7 +24,7 @@ const NAV_ASSETS = [
     name: "portfolio",
     icon: Clipboard,
     structure: "table",
-    to: "/portfolio",
+    to: "/showcase",
   },
   {
     number: 4,
@@ -49,7 +49,7 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
     const { pathname } = useLocation();
 
   return (
-    <section className="fixed top-0 px-10 py-2 border-outline-variant border-b-[1px] w-full bg-background">
+    <section className="fixed top-0 px-10 py-2 border-outline-variant border-b-[1px] w-full bg-background z-50">
 
       <div className="relative flex justify-between items-center">
 

@@ -1,24 +1,6 @@
-interface SkillGroup {
-  category: string;
-  skills: string[];
-}
+import SkillIcon from "../Skill";
 
-const PLACEHOLDER_SKILL_GROUPS: SkillGroup[] = [
-  {
-    category: "Frontend",
-    skills: ["React.js", "Vue.js", "Tailwind CSS", "Bootstrap"],
-  },
-  {
-    category: "Backend",
-    skills: ["Laravel", "Express.js", "Nest.js", "Node.js"],
-  },
-  {
-    category: "Database",
-    skills: ["MySQL", "MongoDB", "Mongoose"],
-  },
-];
-
-export default function Skills() {
+export default function Skills({ skill_groups }: SkillProps) {
   return (
     <section className="py-16 px-6">
       <div className="max-w-3xl mx-auto">
@@ -31,22 +13,23 @@ export default function Skills() {
         </h2>
 
         <div className="space-y-8">
-          {PLACEHOLDER_SKILL_GROUPS.map((group) => (
+          {skill_groups?.map((group) => (
             <div
-              key={group.category}
+              key={group.id}
               className="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-3 sm:gap-6 pb-8 border-b border-outline-variant last:border-b-0"
             >
               <p className="font-mono text-sm text-on-surface-variant uppercase tracking-wide">
-                {group.category}
+                {group.name}
               </p>
 
               <div className="flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="font-mono text-xs sm:text-sm px-3 py-1.5 border border-outline-variant text-on-background"
-                  >
-                    {skill}
+                {group.skills?.map((skill) => (
+                  <span key={skill.id}
+                    className="px-6 font-mono text-sm text-on-surface-variant sm:text-base">
+                    <SkillIcon
+                      icon={skill.skill?.icon}
+                      color={skill.skill?.color}
+                      className={"w-4 h-4 sm:w-6 sm:h-6 lg:w-10 lg:h-10"} />
                   </span>
                 ))}
               </div>

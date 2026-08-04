@@ -18,7 +18,7 @@ export default function App() {
       <section className="font-mono bg-background text-primary">
         <Particle />
 
-        <div className="relative z-10">
+        <div className="relative">
           <Navbar theme={theme} setTheme={() => setTheme(!theme)} />
           <section className="pt-20">
             <Routers />
