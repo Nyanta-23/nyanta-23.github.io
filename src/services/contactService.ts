@@ -4,7 +4,7 @@ import { ContactData } from "../types/page";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const contact = async (): Promise<
+export const contactService = async (): Promise<
   Omit<ContactData, "roles"> | undefined
 > => {
   try {

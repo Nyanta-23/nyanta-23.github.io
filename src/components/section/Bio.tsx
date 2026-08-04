@@ -1,4 +1,4 @@
-export default function Bio() {
+export default function Bio({bio, bio_heading}: BioProps) {
     return (
         <section className="py-16 px-6">
             <div className="max-w-3xl mx-auto">
@@ -7,11 +7,12 @@ export default function Bio() {
                 </p>
 
                 <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-on-background leading-tight mb-8">
-                    A little about my journey
+                    {bio_heading}
                 </h2>
 
                 <div className="space-y-5 text-base sm:text-lg text-on-surface-variant leading-relaxed">
-                    <p>
+                    {bio}
+                    {/* <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                         enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -30,7 +31,7 @@ export default function Bio() {
                         accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
                         quae ab illo inventore veritatis et quasi architecto beatae
                         vitae dicta sunt explicabo.
-                    </p>
+                    </p> */}
                 </div>
             </div>
         </section>

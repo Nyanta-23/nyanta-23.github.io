@@ -4,7 +4,7 @@ import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const portfolio = async () => {
+export const portfolioService = async () => {
   try {
     // Raw Data
     const navSheet = await getNavigationSheets();
@@ -20,10 +20,7 @@ export const portfolio = async () => {
       "project_types",
       navSheet,
     )?.gid;
-    const gidSkillsSheet = getGidFromNavigationSheet(
-      "skills",
-      navSheet,
-    )?.gid;
+    const gidSkillsSheet = getGidFromNavigationSheet("skills", navSheet)?.gid;
 
     const gidProjectRolesSheet = getGidFromNavigationSheet(
       "project_roles",
@@ -52,16 +49,19 @@ export const portfolio = async () => {
 
     // Data JSON
 
-    const parseProfile = keyValueParser(pullProfileHtml);
+    const parseProfile =
+      keyValueParser<Omit<PortfolioData, "portfolio">>(pullProfileHtml);
 
-    const parseProjects = tableParser(pullProjectsHtml);
-    const parseRoles = tableParser(pullRolesHtml);
-    const parseTypeOfProjects = tableParser(pullTypeOfProjectsHtml);
-    const parseSkills = tableParser(pullSkillsHtml);
+    const parseProjects = tableParser<Project>(pullProjectsHtml);
+    const parseRoles = tableParser<Role>(pullRolesHtml);
+    const parseTypeOfProjects = tableParser<TypeOfProject>(
+      pullTypeOfProjectsHtml,
+    );
+    const parseSkills = tableParser<Skill>(pullSkillsHtml);
 
-    const parseProjectRoles = tableParser(pullProjectRolesHtml);
-    const parseProjectTypes = tableParser(pullProjectTypesHtml);
-    const parseProjectStacks = tableParser(pullProjectStacksHtml);
+    const parseProjectRoles = tableParser<ProjectRole>(pullProjectRolesHtml);
+    const parseProjectTypes = tableParser<ProjectType>(pullProjectTypesHtml);
+    const parseProjectStacks = tableParser<ProjectStack>(pullProjectStacksHtml);
 
     // Manage Data
 
@@ -86,16 +86,14 @@ export const portfolio = async () => {
       }))
       .map((project) => ({
         ...project,
-        skills: parseProjectStacks.filter((projectStacks) => projectStacks.project_id === project.id)
-        .map((ps) => ({
+        skills: parseProjectStacks
+          .filter((projectStacks) => projectStacks.project_id === project.id)
+          .map((ps) => ({
             ...ps,
-            skill: parseSkills.find((s) => s.id === ps.skill_id)
-        }))
+            skill: parseSkills.find((s) => s.id === ps.skill_id),
+          })),
       }))
       .sort((a, b) => Number(b.year) - Number(a.year));
-
-
-      console.log(portfolio)
 
     return {
       ...parseProfile,

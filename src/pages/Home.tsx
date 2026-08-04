@@ -1,15 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Hero from "../components/section/Hero";
-// import { useNav } from "../context/NavContext";
-import useSheetData from "../hooks/useSheetData";
-// import { getDataKeyVal } from "../helpers/helper";
-import Summary from "../components/section/Summary";
 import CallToAction from "../components/section/CallToAction";
-import SkillsHighlight from "../components/section/SkillsHighlight";
-import FeaturedProjects from "../components/section/FeaturedProject";
-import { home } from "../services/homeService";
-import { HomeData } from "../types/page";
+import { homeService } from "../services/homeService";
+// import { HomeData } from "../types/page";
 import Preloader from "../components/Preloader";
+import SkillsMarquee from "../components/section/SkillsMarque";
+import NewestProject from "../components/section/NewestProject";
 
 export default function Home() {
 
@@ -18,7 +14,7 @@ export default function Home() {
   useEffect(() => {
 
     const loadDataHome = async () => {
-      const data = await home();
+      const data = await homeService();
 
       setHomeData(data);
     }
@@ -33,18 +29,28 @@ export default function Home() {
   }
 
 
-  const { name, photo_url, summary, roles } = homeData;
+  const {
+    name,
+    photo_url,
+    summary,
+    roles,
+    projects,
+    skills
+  } = homeData;
 
 
   return (
-
-
-
     <section className="px-6 my-5">
 
-      <Hero name={name} photo_url={photo_url} summary={summary} roles={roles} />
-      <SkillsHighlight />
-      <FeaturedProjects />
+      <Hero
+        name={name}
+        photo_url={photo_url}
+        summary={summary}
+        roles={roles}
+      />
+
+      <NewestProject projects={projects} />
+      <SkillsMarquee skills={skills} />
       <CallToAction />
 
     </section>

@@ -4,7 +4,7 @@ import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const profile = async () => {
+export const profileService = async () => {
   try {
     // Raw Data
     const navSheet = await getNavigationSheets();
@@ -66,18 +66,32 @@ export const profile = async () => {
 
     // Data JSON
 
-    const parseProfile = keyValueParser(pullProfileHtml);
+    const parseProfile =
+      keyValueParser<
+        Omit<
+          ProfileData,
+          "skill_groups" | "educations" | "certifications" | "experiences"
+        >
+      >(pullProfileHtml);
 
-    const parseSkillGroups = tableParser(pullSkillGroupsHtml);
-    const parseSkills = tableParser(pullSkillsHtml);
-    const parseRoles = tableParser(pullRolesHtml);
-    const parseExperiences = tableParser(pullExperiencesHtml);
-    const parseEducations = tableParser(pullEducationsHtml);
-    const parseCertifications = tableParser(pullCertificationsHtml);
+    const parseSkillGroups = tableParser<SkillGroup>(pullSkillGroupsHtml);
+    const parseSkills = tableParser<Skill>(pullSkillsHtml);
+    const parseRoles = tableParser<Role>(pullRolesHtml);
+    const parseExperiences = tableParser<Experience>(pullExperiencesHtml);
+    const parseEducations = tableParser<Education>(pullEducationsHtml);
+    const parseCertifications = tableParser<Certification>(
+      pullCertificationsHtml,
+    );
 
-    const parseSkillGroupTags = tableParser(pullSkillGroupTagsHtml);
-    const parseExperienceRoles = tableParser(pullExperienceRolesHtml);
-    const parseExperienceSkills = tableParser(pullExperienceSkillsHtml);
+    const parseSkillGroupTags = tableParser<SkillGroupTag>(
+      pullSkillGroupTagsHtml,
+    );
+    const parseExperienceRoles = tableParser<ExperienceRole>(
+      pullExperienceRolesHtml,
+    );
+    const parseExperienceSkills = tableParser<ExperienceSkill>(
+      pullExperienceSkillsHtml,
+    );
 
     // Manage Data
 
@@ -89,7 +103,7 @@ export const profile = async () => {
         )
         .map((sg) => ({
           ...sg,
-          skill: parseSkills.find((s) => s.id === sg.id),
+          skill: parseSkills.find((s) => s.id === sg.skill_id),
         })),
     }));
 
@@ -123,15 +137,15 @@ export const profile = async () => {
     }));
 
     const certifications = parseCertifications.map((certification) => ({
-        ...certification
+      ...certification,
     }));
 
     return {
       ...parseProfile,
-      skillGroups: skillGroups,
+      skill_groups: skillGroups,
       experiences: experiences,
       educations: educations,
-      certifications: certifications
+      certifications: certifications,
     };
   } catch (err) {
     if (err instanceof Error) {

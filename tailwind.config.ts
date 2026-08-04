@@ -72,6 +72,20 @@ export default {
 
       animation: {
         "loading-spin": "spin 5s infinite",
+        "marquee-slow": "marquee 40s linear infinite",
+        marquee: "marquee 25s linear infinite",
+        "marquee-fast": "marquee 12s linear infinite",
+      },
+
+      keyframes: {
+        marquee: {
+          "0%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(-50%)",
+          },
+        },
       },
 
       // keyframes: {

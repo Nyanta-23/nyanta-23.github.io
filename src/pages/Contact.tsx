@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { contact } from "../services/contactService";
+import { contactService } from "../services/contactService";
 import { ContactData } from "../types/page";
 import ContactInfo from "../components/section/ContactInfo";
 import ContactForm from "../components/section/ContactForm";
@@ -21,7 +21,7 @@ export default function Contact() {
     useEffect(() => {
 
         const loadDataContact = async () => {
-            const data = await contact();
+            const data = await contactService();
 
             setDataContact(data);
         }
