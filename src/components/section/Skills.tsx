@@ -22,15 +22,21 @@ export default function Skills({ skill_groups }: SkillProps) {
                 {group.name}
               </p>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-4">
                 {group.skills?.map((skill) => (
-                  <span key={skill.id}
-                    className="px-6 font-mono text-sm text-on-surface-variant sm:text-base">
+                  <div
+                    key={skill.id}
+                    className="flex flex-col items-center gap-1.5"
+                  >
                     <SkillIcon
                       icon={skill.skill?.icon}
                       color={skill.skill?.color}
-                      className={"w-4 h-4 sm:w-6 sm:h-6 lg:w-10 lg:h-10"} />
-                  </span>
+                      className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10"
+                    />
+                    <span className="font-mono text-[9px] text-on-surface-variant text-center leading-tight">
+                      {skill.skill?.name}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>

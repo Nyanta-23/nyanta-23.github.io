@@ -5,7 +5,7 @@ import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const homeService = async (): Promise<HomeData | undefined> => {
+export const homeService = async (): Promise<HomeData | undefined>  => {
   try {
     // Raw Data
 

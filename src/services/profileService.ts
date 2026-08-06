@@ -4,7 +4,7 @@ import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const profileService = async () => {
+export const profileService = async (): Promise<ProfileData | undefined> => {
   try {
     // Raw Data
     const navSheet = await getNavigationSheets();
@@ -34,11 +34,6 @@ export const profileService = async () => {
 
     const gidRolesSheet = getGidFromNavigationSheet("roles", navSheet)?.gid;
 
-    const gidExperienceSkillsSheet = getGidFromNavigationSheet(
-      "experience_skills",
-      navSheet,
-    )?.gid;
-
     const gidEducationsSheet = getGidFromNavigationSheet(
       "educations",
       navSheet,
@@ -62,7 +57,6 @@ export const profileService = async () => {
 
     const pullSkillGroupTagsHtml = await getSheet(gidSKillGroupTagsSheet);
     const pullExperienceRolesHtml = await getSheet(gidExperienceRolesSheet);
-    const pullExperienceSkillsHtml = await getSheet(gidExperienceSkillsSheet);
 
     // Data JSON
 
@@ -89,9 +83,6 @@ export const profileService = async () => {
     const parseExperienceRoles = tableParser<ExperienceRole>(
       pullExperienceRolesHtml,
     );
-    const parseExperienceSkills = tableParser<ExperienceSkill>(
-      pullExperienceSkillsHtml,
-    );
 
     // Manage Data
 
@@ -107,30 +98,17 @@ export const profileService = async () => {
         })),
     }));
 
-    const experiences = parseExperiences
-      .map((experience) => ({
-        ...experience,
-        roles: parseExperienceRoles
-          .filter(
-            (experienceRole) => experienceRole.experience_id === experience.id,
-          )
-          .map((er) => ({
-            ...er,
-            role: parseRoles.find((r) => r.id === er.role_id),
-          })),
-      }))
-      .map((experience) => ({
-        ...experience,
-        skills: parseExperienceSkills
-          .filter(
-            (experienceSKill) =>
-              experienceSKill.experience_id === experience.id,
-          )
-          .map((es) => ({
-            ...es,
-            skill: parseSkills.find((s) => s.id === es.skill_id),
-          })),
-      }));
+    const experiences = parseExperiences.map((experience) => ({
+      ...experience,
+      roles: parseExperienceRoles
+        .filter(
+          (experienceRole) => experienceRole.experience_id === experience.id,
+        )
+        .map((er) => ({
+          ...er,
+          role: parseRoles.find((r) => r.id === er.role_id),
+        })),
+    }));
 
     const educations = parseEducations.map((education) => ({
       ...education,

@@ -26,16 +26,6 @@ export default function ExperienceEntry({ experience, latest_position_id }: Expe
                 </div>
 
             </div>
-            <div className="space-y-5 flex flex-wrap gap-2">
-                {experience.skills?.map((skill) => (
-                    <span key={skill.id} className="pl-3 pr-5 font-mono text-sm text-on-surface-variant sm:text-base">
-                        <SkillIcon
-                            icon={skill.skill?.icon}
-                            color={skill.skill?.color}
-                            className={"w-4 h-4 sm:w-6 sm:h-6 lg:w-10 lg:h-10"} />
-                    </span>
-                ))}
-            </div>
         </div>
     );
 }

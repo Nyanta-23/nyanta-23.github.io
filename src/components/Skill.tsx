@@ -14,8 +14,7 @@ export default function SkillIcon({
   className,
 }: SkillIconProps) {
 
-
-  const Icon = getIconByName(icon);
+  const Icon = getIconByName(icon ? icon : "");
 
   return (
     <Icon

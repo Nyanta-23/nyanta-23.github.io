@@ -4,7 +4,7 @@ import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const portfolioService = async () => {
+export const portfolioService = async (): Promise<PortfolioData | undefined> => {
   try {
     // Raw Data
     const navSheet = await getNavigationSheets();

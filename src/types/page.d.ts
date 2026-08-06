@@ -9,7 +9,14 @@ interface HomeData {
   skills?: Skill[];
 }
 
-interface ContactData {}
+interface ContactData {
+  email: string;
+  phone: string;
+  location: string;
+  availability: string;
+  
+  social_medias?: SocialMedia[];
+}
 
 interface ProfileData {
   bio_heading: string | null;
@@ -17,17 +24,15 @@ interface ProfileData {
 
   skill_groups?: SkillGroup[];
   educations?: Education[];
-  certifications?: Certification[]; 
+  certifications?: Certification[];
   experiences?: Experience[];
 }
 
-interface PortfolioData {  
-
+interface PortfolioData {
   name: string;
 
   portfolio: Project[];
 }
-
 
 interface Role {
   id: string;
@@ -92,13 +97,19 @@ interface Experience {
   company_url: string;
   location: string;
 
-  skills?: ExperienceSkill[];
   roles?: ExperienceRole[];
+}
+
+interface SocialMedia {
+  id: string;
+  name: string;
+  icon: string;
+  link: string;
 }
 
 interface TypeOfProject {
   id: string;
-  name: string;  
+  name: string;
 }
 
 interface ProjectRole {
@@ -129,14 +140,6 @@ interface SkillGroupTag {
   skill?: Skill;
 }
 
-interface ExperienceSkill {
-  id: string;
-  experience_id: string;
-  skill_id: string;
-  
-  skill?: Skill;
-}
-
 interface ExperienceRole {
   id: string;
   experience_id: string;
@@ -149,8 +152,5 @@ interface ExperienceRole {
   role?: Role;
   skill?: Skill;
 }
-
-
-
 
 interface BlogData {}
