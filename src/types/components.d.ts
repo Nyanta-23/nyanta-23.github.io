@@ -98,3 +98,14 @@ interface CredentialProps {
 interface PortfolioProps {
   projects?: Project[];
 }
+
+interface ContactInfoProps {
+  email: string;
+  phone: string;
+  location: string;
+  social_medias?: SocialMedia[];
+}
+
+interface SocialMediaProps {
+  social_media: SocialMedia;
+}

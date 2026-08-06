@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { contactService } from "../services/contactService";
-import { ContactData } from "../types/page";
 import ContactInfo from "../components/section/ContactInfo";
 import ContactForm from "../components/section/ContactForm";
+import Preloader from "../components/Preloader";
 
 const PLACEHOLDER_CONTACT = {
-  email: "email@example.com",
-  phone: "+62 000 0000 0000",
-  linkedin: "yourname",
-  github: "yourname",
-  location: "City, Country",
-  availability: "Open for collaboration and job opportunities",
+    email: "email@example.com",
+    phone: "+62 000 0000 0000",
+    linkedin: "yourname",
+    github: "yourname",
+    location: "City, Country",
+    availability: "Open for collaboration and job opportunities",
 };
 
 
@@ -30,9 +30,16 @@ export default function Contact() {
 
     }, []);
 
+
+    if (!dataContact) {
+        return <Preloader isLoading={true} />;
+    }
+
+
+    const { email, phone, location, social_medias, availability } = dataContact;
+
     console.log(dataContact);
 
-    // const { email, phone, location, linkedin, github } = dataContact;
 
     return (
         <section className="px-6 my-7">
@@ -47,16 +54,15 @@ export default function Contact() {
                     </h1>
 
                     <p className="text-base sm:text-lg text-on-surface-variant leading-relaxed mb-12 max-w-lg">
-                        {PLACEHOLDER_CONTACT.availability}
+                        {availability}
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <ContactInfo
-                            email={PLACEHOLDER_CONTACT.email}
-                            phone={PLACEHOLDER_CONTACT.phone}
-                            linkedin={PLACEHOLDER_CONTACT.linkedin}
-                            github={PLACEHOLDER_CONTACT.github}
-                            location={PLACEHOLDER_CONTACT.location}
+                            email={email}
+                            phone={phone}
+                            location={location}
+                            social_medias={social_medias}
                         />
 
                         <ContactForm />

@@ -39,7 +39,7 @@ function getGidFromNavigationSheet(
   return sheetNavData?.find((item) => item.name === sheetName);
 }
 
-function formatList(items, attributeItem) {
+function formatList(items: string[]) {
   if (items.length === 0) return "";
   if (items.length === 1) return items[0];
   if (items.length === 2) return `${items[0]} & ${items[1]}`;
@@ -58,12 +58,12 @@ function formatListFromObjects<T>(
   return formatList(labels);
 }
 
-function formatRoles(roles) {
-  return formatListFromObjects(roles, (item) => item.role.name);
+function formatRoles(roles: any) {
+  return formatListFromObjects(roles, (item) => item?.role?.name);
 }
 
-function formatTypes(types) {
-  return formatListFromObjects(types, (item) => item.type.name);
+function formatTypes(types: any) {
+  return formatListFromObjects(types, (item) => item?.type?.name);
 }
 
 function parseYearMonth(value?: string | null): Date | null {

@@ -29,7 +29,7 @@ export default function Education({ education, is_latest }: EducationProps) {
           ${is_latest ? "bg-on-background" : "bg-background"}`}
       />
 
-      <div className="border border-outline-variant p-6 shadow-elevated hover:shadow-floating transition-shadow duration-200 bg-background">
+      <div className="border border-outline-variant p-6 shadow-elevated hover:shadow-floating hover:bg-background transition-shadow duration-200">
         <div className="flex items-start justify-between mb-6">
           <div className="w-12 h-12 rounded-full border-2 border-charcoal-ink dark:border-pure-white flex items-center justify-center flex-shrink-0">
             <GraduationCap size={22} className="text-on-background" />
