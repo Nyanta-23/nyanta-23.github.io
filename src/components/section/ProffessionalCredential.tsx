@@ -12,7 +12,7 @@ export default function ProffessionalCredential({ credentials }: ProffessionalCr
           Licenses &amp; certifications
         </h2>
 
-        <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           {credentials?.map((item) => (
             <Certification key={item.id} credential={item} />
           ))}
