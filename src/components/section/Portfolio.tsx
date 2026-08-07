@@ -17,7 +17,7 @@ export default function Portfolio({ projects }: PortfolioProps) {
           apps, admin dashboards, and frontend interfaces.
         </p>
 
-        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {projects?.map((project) => (
             <Project key={project.id} project={project} />
           ))}

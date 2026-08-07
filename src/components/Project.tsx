@@ -38,9 +38,9 @@ export default function Project({ project }: ProjectProps) {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col p-4 xs:p-5 sm:p-6 border border-t-0 border-outline-variant group-hover:bg-background-ghost transition-colors duration-150">
+      <div className="flex-1 flex flex-col p-4 sm:p-6 border border-t-0 border-outline-variant group-hover:bg-background-ghost transition-colors duration-150">
         <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="font-serif text-lg xs:text-xl font-semibold text-on-background">
+          <h3 className="font-serif text-lg sm:text-xl font-semibold text-on-background">
             {name}
           </h3>
           <ArrowUpRight
@@ -50,19 +50,19 @@ export default function Project({ project }: ProjectProps) {
         </div>
 
         <div className="mb-3 xs:mb-4 space-y-0.5">
-          <p className="font-mono text-sm xs:text-base text-on-background">
+          <p className="font-mono text-sm sm:text-base text-on-background">
             {typeText}
           </p>
-          <p className="font-mono text-xs xs:text-sm text-on-surface-variant">
+          <p className="font-mono text-xs sm:text-sm text-on-surface-variant">
             {roleText}
           </p>
         </div>
 
-        <p className="text-sm text-on-surface-variant text-justify sm:text-justify leading-relaxed mb-4 xs:mb-5 flex-1">
+        <p className="text-sm text-on-surface-variant text-justify leading-relaxed mb-4 sm:mb-5 flex-1">
           {description}
         </p>
 
-        <div className="flex flex-wrap gap-2 xs:gap-3">
+        <div className="flex flex-wrap gap-2 sm:gap-3">
           {skills?.map((tech) => {
             const skill = tech.skill;
 
@@ -71,7 +71,7 @@ export default function Project({ project }: ProjectProps) {
                 key={tech.id}
                 icon={skill?.icon}
                 // color={skill.color}
-                className="w-4 h-4 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
+                className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
               />
             );
           })}

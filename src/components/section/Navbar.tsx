@@ -20,7 +20,7 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
   return (
     <section className="fixed top-0 px-10 py-2 border-outline-variant border-b-[1px] w-full bg-background z-50">
       <div className="grid grid-cols-3 items-center">
-        {/* KOLOM KIRI: Logo */}
+
         <div className="flex items-center justify-self-start">
           <Button>
             <img
@@ -31,7 +31,6 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
           </Button>
         </div>
 
-        {/* KOLOM TENGAH: Download CV, always center */}
         <div className="flex justify-self-center">
           <Button
             className="nav-btn px-3 text-sm sm:text-base sm:px-4 md:px-5 py-2 sm:py-3 md:py-4 bg-on-background rounded-md text-on-primary flex items-center justify-between gap-2 sm:gap-3 md:gap-4 cursor-pointer"
@@ -43,7 +42,6 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
           </Button>
         </div>
 
-        {/* KOLOM KANAN: Nav teks (desktop) + theme toggle */}
         <div className="flex items-center justify-self-end gap-4 xl:gap-6">
           <div className="hidden nav:flex items-center gap-5 xl:gap-7">
             {NAV_ASSETS.map(({ number, to, name }) => {
@@ -77,15 +75,14 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
           </Button>
         </div>
 
-        {/* NAV MOBILE/TABLET: floating bottom (icon), di bawah breakpoint 'nav' */}
-        <div className="nav:hidden fixed bottom-[5%] left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <div className="nav:hidden fixed bottom-[4%] left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div
             className={`flex flex-col items-center transition-transform duration-300 ease-in-out
             ${showNav ? "translate-y-0" : "translate-y-[calc(100%+16px)]"}`}
           >
             <Button
               onClick={() => setShowNav(!showNav)}
-              className="relative z-0 w-16 bg-surface-container-high pt-1.5 pb-3 -mb-2 rounded-t-2xl flex items-center justify-center nav-btn"
+              className="relative z-0 w-24 bg-surface-container-high pt-2 pb-3 -mb-2 rounded-t-2xl flex items-center justify-center nav-btn"
             >
               {showNav ? (
                 <ChevronDown className="w-4 h-4" />
@@ -108,7 +105,7 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
                         }`}
                     >
                       {Icon && (
-                        <Icon className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 nav:w-9 nav:h-9" />
+                        <Icon className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 nav:w-9 nav:h-9" />
                       )}
                     </Button>
                   </NavLink>

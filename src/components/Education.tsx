@@ -25,7 +25,7 @@ export default function Education({ education, is_latest }: EducationProps) {
   return (
     <div className="relative pl-8 sm:pl-9 md:pl-10">
       <div
-        className={`absolute left-0 top-5 sm:top-6 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full border-2 border-charcoal-ink dark:border-pure-white
+        className={`absolute left-[3px] sm:left-0 top-5 sm:top-6 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 border-charcoal-ink dark:border-pure-white
         ${is_latest ? "bg-on-background" : "bg-background"}`}
       />
 
