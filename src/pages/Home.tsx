@@ -40,7 +40,7 @@ export default function Home() {
 
 
   return (
-    <section className="px-6 my-5">
+    <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
 
       <Hero
         name={name}

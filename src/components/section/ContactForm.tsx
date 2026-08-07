@@ -29,6 +29,20 @@ export default function ContactForm() {
         }
     }, [status]);
 
+    useEffect(() => {
+        setCooldown(getRemainingCooldown());
+    }, []);
+
+    useEffect(() => {
+        if (cooldown <= 0) return;
+
+        const interval = setInterval(() => {
+            setCooldown((prev) => Math.max(0, prev - 1));
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [cooldown]);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -113,12 +127,12 @@ export default function ContactForm() {
     };
 
     return (
-        <div className="border border-outline-variant p-8">
-            <p className="font-mono text-xs uppercase tracking-wide text-on-surface-variant mb-6">
+        <div className="border border-outline-variant p-5 sm:p-6 md:p-8">
+            <p className="font-mono text-xs uppercase tracking-wide text-on-surface-variant mb-4 sm:mb-5 md:mb-6">
                 Send a Message
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
 
                 <div aria-hidden="true" className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
                     <label htmlFor="website">Website</label>
@@ -134,7 +148,7 @@ export default function ContactForm() {
                 </div>
 
                 <div>
-                    <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-2">
+                    <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-1.5 sm:mb-2">
                         Name
                     </label>
                     <input
@@ -142,13 +156,13 @@ export default function ContactForm() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your name"
-                        className="w-full bg-transparent border-b border-outline-variant py-2 text-on-background font-mono text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150"
+                        className="w-full bg-transparent border-b border-outline-variant py-1.5 sm:py-2 text-on-background font-mono text-xs sm:text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150"
                     />
                 </div>
 
 
                 <div>
-                    <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-2">
+                    <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-1.5 sm:mb-2">
                         Email
                     </label>
                     <input
@@ -156,18 +170,18 @@ export default function ContactForm() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="your@email.com"
-                        className="w-full bg-transparent border-b border-outline-variant py-2 text-on-background font-mono text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150"
+                        className="w-full bg-transparent border-b border-outline-variant py-1.5 sm:py-2 text-on-background font-mono text-xs sm:text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150"
                     />
                 </div>
 
                 <div>
-                    <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-2">
+                    <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-1.5 sm:mb-2">
                         Message
                     </label>
                     <textarea
                         rows={4}
                         placeholder="Tell me about your project..."
-                        className="w-full bg-transparent border-b border-outline-variant py-2 text-on-background font-mono text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150 resize-none"
+                        className="w-full bg-transparent border-b border-outline-variant py-1.5 sm:py-2 text-on-background font-mono text-xs sm:text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150 resize-none"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                     />
@@ -176,7 +190,7 @@ export default function ContactForm() {
                 {status.type && (
                     <div
                         aria-live="polite"
-                        className={`rounded-md border p-3 text-sm ${status.type === "success"
+                        className={`rounded-md border p-2.5 sm:p-3 text-xs sm:text-sm ${status.type === "success"
                             ? "border-outline-variant bg-surface-container text-on-background"
                             : "border-error bg-error-container text-on-error-container"
                             }`}
@@ -188,7 +202,7 @@ export default function ContactForm() {
                 <Button
                     type="submit"
                     disabled={loading || cooldown > 0}
-                    className="nav-btn w-full sm:w-auto px-6 py-3 rounded-md bg-primary text-on-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="nav-btn w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-md bg-primary text-on-primary disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {loading
                         ? "Sending..."

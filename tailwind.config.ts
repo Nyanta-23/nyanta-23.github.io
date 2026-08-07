@@ -4,18 +4,21 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
+      xs: "480px",
+
       sm: "640px",
       // => @media (min-width: 640px) { ... }
 
       md: "768px",
       // => @media (min-width: 768px) { ... }
-
+      nav: "1100px",
+      
       lg: "1024px",
       // => @media (min-width: 1024px) { ... }
 
       xl: "1280px",
       // => @media (min-width: 1280px) { ... }
-
+      
       "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
     },
@@ -75,6 +78,9 @@ export default {
         "marquee-slow": "marquee 40s linear infinite",
         marquee: "marquee 25s linear infinite",
         "marquee-fast": "marquee 12s linear infinite",
+        "blob-1": "blob-1 6s ease-in-out infinite",
+        "blob-2": "blob-2 7s ease-in-out infinite",
+        "blob-3": "blob-3 5s ease-in-out infinite",
       },
 
       keyframes: {
@@ -85,6 +91,20 @@ export default {
           "100%": {
             transform: "translateX(-50%)",
           },
+        },
+        "blob-1": {
+          "0%, 100%": { transform: "translate(0%, 0%) scale(1)" },
+          "33%": { transform: "translate(20%, -15%) scale(1.15)" },
+          "66%": { transform: "translate(-10%, 15%) scale(0.9)" },
+        },
+        "blob-2": {
+          "0%, 100%": { transform: "translate(0%, 0%) scale(1)" },
+          "33%": { transform: "translate(-20%, 10%) scale(0.85)" },
+          "66%": { transform: "translate(15%, -20%) scale(1.2)" },
+        },
+        "blob-3": {
+          "0%, 100%": { transform: "translate(0%, 0%) scale(1)" },
+          "50%": { transform: "translate(10%, 20%) scale(1.1)" },
         },
       },
 

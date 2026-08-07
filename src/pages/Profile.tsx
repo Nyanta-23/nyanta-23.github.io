@@ -33,13 +33,12 @@ export default function Profile() {
 
 
     return (
-        <section className="px-6 my-5">
+        <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
             <Bio bio={bio} bio_heading={bio_heading} />
             <Skills skill_groups={skill_groups}/>
             <Experience experiences={experiences} />
             <Academic academics={educations} />
             <ProffessionalCredential credentials={certifications} />
-
         </section>
     )
 }
