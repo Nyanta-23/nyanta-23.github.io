@@ -1,20 +1,6 @@
 import { GraduationCap } from "lucide-react";
 import { formatPeriod } from "../helpers/helper";
 
-// export interface EducationItem {
-//   title: string;
-//   subtitle: string;
-//   startDate: string; // format: "Sep 2021"
-//   endDate: string | null; // null artinya "Present" / masih berlangsung
-//   description: string;
-//   result: string;
-// }
-
-// interface EducationCardProps {
-//   education: EducationItem;
-//   isLatest: boolean;
-// }
-
 export default function Education({ education, is_latest }: EducationProps) {
 
 

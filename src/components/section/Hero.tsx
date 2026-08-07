@@ -47,7 +47,7 @@ export default function Hero({
 
         <div className="flex flex-wrap justify-center lg:justify-start gap-3 xs:gap-4">
           <Button
-            onClick={() => navigate("/portfolio")}
+            onClick={() => navigate("/showcase")}
             className="nav-btn flex items-center gap-2 px-5 py-2.5 xs:px-6 xs:py-3 rounded-md bg-primary text-on-primary cursor-pointer text-sm xs:text-base"
           >
             <span>See all projects</span>
