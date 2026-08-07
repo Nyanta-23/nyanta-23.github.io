@@ -109,3 +109,11 @@ interface ContactInfoProps {
 interface SocialMediaProps {
   social_media: SocialMedia;
 }
+
+interface ConnectionProps {
+  email: string;
+  phone: string;
+  location: string;
+  social_medias?: SocialMedia[];
+  availability: string;
+}

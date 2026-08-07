@@ -11,20 +11,20 @@ export default function Academic({ academics }: AcademicProps) {
 
 
   return (
-    <section className="py-16 px-6">
+    <section className="py-10 sm:py-12 md:py-16 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
-        <p className="font-mono text-xs sm:text-sm tracking-[0.1em] uppercase text-on-surface-variant mb-6">
+        <p className="font-mono text-xs sm:text-sm tracking-[0.1em] uppercase text-on-surface-variant mb-4 sm:mb-5 md:mb-6">
           Education
         </p>
 
-        <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-on-background leading-tight mb-12">
+        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-on-background leading-tight mb-8 sm:mb-10 md:mb-12">
           Academic background
         </h2>
 
         <div className="relative">
           <div className="absolute left-2 top-6 bottom-6 w-px bg-outline-variant" />
 
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-7 md:space-y-8">
             {sortedAcademics.map((item) => (
               <Education
                 key={item.id}
