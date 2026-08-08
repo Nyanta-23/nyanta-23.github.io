@@ -4,7 +4,7 @@ import Project from "../Project";
 
 export default function NewestProject({ projects }: NewestProjectProps) {
   const navigate = useNavigate();
-
+  
   return (
     <section className="py-10 sm:py-16 px-4 xs:px-6">
 

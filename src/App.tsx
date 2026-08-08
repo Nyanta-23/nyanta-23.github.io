@@ -1,31 +1,29 @@
-
 import Preloader from "./components/Preloader";
 import Navbar from "./components/section/Navbar";
-import useDarkMode from "./hooks/useDarkMode";
 import Routers from "./routes";
 import Particle from "./components/Particle";
 import useLoading from "./hooks/useLoading";
 import Footer from "./components/section/Footer";
+import { ThemeProvider } from "./context/ThemeContext";
 
 export default function App() {
   const { isLoading } = useLoading();
-  const { theme, setTheme } = useDarkMode();
 
   return (
-    <>
+    <ThemeProvider>
       <Preloader isLoading={isLoading} />
 
       <section className="font-mono bg-background text-primary">
         <Particle />
 
         <div className="relative">
-          <Navbar theme={theme} setTheme={() => setTheme(!theme)} />
+          <Navbar />
           <section className="pt-20">
             <Routers />
           </section>
           <Footer />
         </div>
       </section>
-    </>
+    </ThemeProvider>
   );
 }

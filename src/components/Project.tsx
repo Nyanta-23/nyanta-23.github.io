@@ -1,34 +1,86 @@
 import { ArrowUpRight } from "lucide-react";
 import SkillIcon from "./Skill";
-import { formatRoles, formatTypes } from "../helpers/helper";
+import { formatRoles, formatTypes, getThemedAsset } from "../helpers/helper";
+import useImageSlider from "../hooks/useImageSlider";
+import useAssetImages from "../hooks/useAssetUrl";
+import { useTheme } from "../context/ThemeContext";
+import NyantaBlackIcon from "../assets/icons/nyanta-black.svg";
+import NyantaWhiteIcon from "../assets/icons/nyanta-white.svg";
 
 export default function Project({ project }: ProjectProps) {
-  const { name, link, year, description, skills, roles, types } = project;
+  const { name, link, year, description, skills, roles, types, asset } = project;
 
   const roleText = formatRoles(roles);
   const typeText = formatTypes(types);
 
+  const { images, isLoading } = useAssetImages(asset);
+  const { activeIndex, pause, resume } = useImageSlider({ length: images.length });
+
+  const { theme } = useTheme();
+
+  const icon = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
+
   return (
+
     <a
+
       href={link}
       target="_blank"
       rel="noopener noreferrer"
       className="group flex flex-col h-full z-10"
+      onMouseEnter={pause}
+      onMouseLeave={resume}
     >
       <div className="w-full aspect-video bg-surface-container-high border border-outline-variant overflow-hidden relative">
-        {false ? (
+        {isLoading ? (
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src={icon}
+              alt="Loading"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full animate-spin opacity-70"
+            />
+          </div>
+        ) : images.length === 0 ? (
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src={icon}
+              alt="No preview"
+              className="w-8 h-8 sm:w-10 sm:h-10 opacity-40"
+            />
+          </div>
+        ) : images.length === 1 ? (
           <img
-            src={""}
+            src={images[0]}
             alt={name}
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="font-mono text-xs text-on-surface-variant">
-              No preview
-            </span>
-          </div>
+          <>
+            {images.map((src, idx) => (
+              <img
+                key={src}
+                src={src}
+                alt={`${name} preview ${idx + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-opacity duration-700 ease-in-out
+                ${idx === activeIndex ? "opacity-100" : "opacity-0"}`}
+                loading="lazy"
+              />
+            ))}
+
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+              {images.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`h-1 rounded-full transition-all duration-300
+                  ${idx === activeIndex
+                      ? "w-4 bg-background"
+                      : "w-1 bg-background/50"
+                    }`}
+                />
+              ))}
+            </div>
+          </>
         )}
 
         <div className="absolute top-2 left-2 xs:top-3 xs:left-3 bg-background/90 backdrop-blur-sm px-2 py-1 border border-outline-variant">
