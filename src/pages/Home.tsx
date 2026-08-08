@@ -6,6 +6,8 @@ import { homeService } from "../services/homeService";
 import Preloader from "../components/Preloader";
 import SkillsMarquee from "../components/section/SkillsMarque";
 import NewestProject from "../components/section/NewestProject";
+import useDarkMode from "../hooks/useDarkMode";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Home() {
 

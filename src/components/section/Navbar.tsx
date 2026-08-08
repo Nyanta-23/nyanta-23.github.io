@@ -4,6 +4,8 @@ import NyantaBlackIcon from "../../assets/icons/nyanta-black.svg";
 import NyantaWhiteIcon from "../../assets/icons/nyanta-white.svg";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useTheme } from "../../context/ThemeContext";
+import { getThemedAsset } from "../../helpers/helper";
 
 const NAV_ASSETS = [
   { number: 1, name: "home", icon: House, structure: "key-values", to: "/" },
@@ -13,9 +15,12 @@ const NAV_ASSETS = [
   { number: 5, name: "contact", icon: Contact, structure: "key-values", to: "/contact" },
 ];
 
-export default function Navbar({ theme, setTheme }: NavbarProps) {
+export default function Navbar() {
   const { pathname } = useLocation();
   const [showNav, setShowNav] = useState<boolean>(false);
+  const { theme, setTheme } = useTheme();
+
+  const logoSrc = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
 
   return (
     <section className="fixed top-0 px-10 py-2 border-outline-variant border-b-[1px] w-full bg-background z-50">
@@ -25,8 +30,8 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
           <Button>
             <img
               className={`rounded-full w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20`}
-              src={theme ? NyantaWhiteIcon : NyantaBlackIcon}
-              alt="nyanta-white-logo"
+              src={logoSrc}
+              alt="nyanta-logo"
             />
           </Button>
         </div>
@@ -65,7 +70,7 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
 
           <Button
             className="bg-background text-on-surface border-outline-variant border-2 p-2 rounded-md nav-btn"
-            onClick={setTheme}
+            onClick={() => setTheme(!theme)}
           >
             {theme ? (
               <Sun className={"w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 nav:w-9 nav:h-9"} />

@@ -2,7 +2,10 @@ import { ArrowRight, Download } from "lucide-react";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import TypedText from "../TypedText";
-import { getAssetUrl } from "../../helpers/helper";
+import { getAssetUrl, getThemedAsset } from "../../helpers/helper";
+import { useTheme } from "../../context/ThemeContext";
+import NyantaBlackIcon from "../../assets/icons/nyanta-black.svg";
+import NyantaWhiteIcon from "../../assets/icons/nyanta-white.svg";
 
 export default function Hero({
   name,
@@ -13,6 +16,10 @@ export default function Hero({
   const navigate = useNavigate();
   const cdnAsset = getAssetUrl(photo_url);
 
+  const { theme } = useTheme();
+
+  const image = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
+
   return (
     <section
       className="flex flex-col items-center text-center px-4 xs:px-6 pt-8 xs:pt-12 pb-10 xs:pb-16
@@ -21,7 +28,7 @@ export default function Hero({
       <div className="relative mb-6 xs:mb-8 lg:mb-0 lg:flex-shrink-0">
         <img
           className="z-10 relative w-48 h-48 xs:w-64 xs:h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-md object-cover border-4 xs:border-[6px] border-charcoal-ink dark:border-pure-white"
-          src={cdnAsset}
+          src={cdnAsset ?? image}
           alt={name ?? "This is my image profile."}
         />
 

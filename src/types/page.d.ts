@@ -58,6 +58,7 @@ interface Project {
   description: string;
   link: string;
   year: string;
+  asset: string;
   roles?: ProjectRole[];
   types?: ProjectType[];
   skills?: ProjectStack[];

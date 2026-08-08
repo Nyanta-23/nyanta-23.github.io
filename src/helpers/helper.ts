@@ -159,6 +159,10 @@ function getLatestEducationId(educations: Education[]): string | null {
   return sortEducationByRecency(educations)[0]?.id ?? null;
 }
 
+function getThemedAsset<T>(theme: boolean, lightAsset: T, darkAsset: T): T {
+  return theme ? lightAsset : darkAsset;
+}
+
 export {
   getAssetUrl,
   getGidFromNavigationSheet,
@@ -171,5 +175,6 @@ export {
   getLatestPositionId,
   sortExperiencesByRecency,
   getLatestEducationId,
-  sortEducationByRecency
+  sortEducationByRecency,
+  getThemedAsset
 };
