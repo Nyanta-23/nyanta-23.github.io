@@ -46,17 +46,27 @@ export const profileService = async (): Promise<ProfileData | undefined> => {
 
     // Html Data
 
-    const pullProfileHtml = await getSheet(gidProfileSheet);
-
-    const pullSkillGroupsHtml = await getSheet(gidSkillGroupsSheet);
-    const pullSkillsHtml = await getSheet(gidSkillsSheet);
-    const pullRolesHtml = await getSheet(gidRolesSheet);
-    const pullExperiencesHtml = await getSheet(gidExperiencesSheet);
-    const pullEducationsHtml = await getSheet(gidEducationsSheet);
-    const pullCertificationsHtml = await getSheet(gidCertificationsSheet);
-
-    const pullSkillGroupTagsHtml = await getSheet(gidSKillGroupTagsSheet);
-    const pullExperienceRolesHtml = await getSheet(gidExperienceRolesSheet);
+    const [
+      pullProfileHtml,
+      pullSkillGroupsHtml,
+      pullSkillsHtml,
+      pullRolesHtml,
+      pullExperiencesHtml,
+      pullEducationsHtml,
+      pullCertificationsHtml,
+      pullSkillGroupTagsHtml,
+      pullExperienceRolesHtml,
+    ] = await Promise.all([
+      getSheet(gidProfileSheet),
+      getSheet(gidSkillGroupsSheet),
+      getSheet(gidSkillsSheet),
+      getSheet(gidRolesSheet),
+      getSheet(gidExperiencesSheet),
+      getSheet(gidEducationsSheet),
+      getSheet(gidCertificationsSheet),
+      getSheet(gidSKillGroupTagsSheet),
+      getSheet(gidExperienceRolesSheet),
+    ]);
 
     // Data JSON
 
@@ -83,6 +93,8 @@ export const profileService = async (): Promise<ProfileData | undefined> => {
     const parseExperienceRoles = tableParser<ExperienceRole>(
       pullExperienceRolesHtml,
     );
+
+    // console.log(parseExperienceRoles);
 
     // Manage Data
 
@@ -117,6 +129,8 @@ export const profileService = async (): Promise<ProfileData | undefined> => {
     const certifications = parseCertifications.map((certification) => ({
       ...certification,
     }));
+
+    console.log(experiences);
 
     return {
       ...parseProfile,

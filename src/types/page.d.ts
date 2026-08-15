@@ -7,6 +7,7 @@ interface HomeData {
   roles?: Role[];
   projects?: Project[];
   skills?: Skill[];
+  services?: Service[];
 }
 
 interface ContactData {
@@ -111,6 +112,14 @@ interface SocialMedia {
 interface TypeOfProject {
   id: string;
   name: string;
+}
+
+interface Service {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  price?: string;
 }
 
 interface ProjectRole {

@@ -5,7 +5,7 @@ import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const homeService = async (): Promise<HomeData | undefined>  => {
+export const homeService = async (): Promise<HomeData | undefined> => {
   try {
     // Raw Data
 
@@ -36,19 +36,30 @@ export const homeService = async (): Promise<HomeData | undefined>  => {
     )?.gid;
 
     const gidSkillsSheet = getGidFromNavigationSheet("skills", navSheet)?.gid;
+    const gidServicesSheet = getGidFromNavigationSheet("services", navSheet)?.gid;
 
     // Html Data
-
-    const pullProfileHtml = await getSheet(gidProfileSheet);
-
-    const pullProjectsHtml = await getSheet(gidProjectsSheet);
-    const pullRolesHtml = await getSheet(gidRolesSheet);
-    const pullTypeOfProjectsHtml = await getSheet(gidTypeOfProjectsSheet);
-    const pullSkillsHtml = await getSheet(gidSkillsSheet);
-
-    const pullProjectRolesHtml = await getSheet(gidProjectRolesSheet);
-    const pullProjectTypesHtml = await getSheet(gidProjectTypesSheet);
-    const pullProjectStacksHtml = await getSheet(gidProjectStacksSheet);
+    const [
+      pullProfileHtml,
+      pullProjectsHtml,
+      pullRolesHtml,
+      pullTypeOfProjectsHtml,
+      pullSkillsHtml,
+      pullProjectRolesHtml,
+      pullProjectTypesHtml,
+      pullProjectStacksHtml,
+      pullServicesHtml
+    ] = await Promise.all([
+      getSheet(gidProfileSheet),
+      getSheet(gidProjectsSheet),
+      getSheet(gidRolesSheet),
+      getSheet(gidTypeOfProjectsSheet),
+      getSheet(gidSkillsSheet),
+      getSheet(gidProjectRolesSheet),
+      getSheet(gidProjectTypesSheet),
+      getSheet(gidProjectStacksSheet),
+      getSheet(gidServicesSheet)
+    ]);
 
     // Data JSON
 
@@ -59,10 +70,12 @@ export const homeService = async (): Promise<HomeData | undefined>  => {
     const parseProjects = tableParser<Project>(pullProjectsHtml);
     const parseTypeOfProjects = tableParser<Type>(pullTypeOfProjectsHtml);
     const parseSkills = tableParser<Skill>(pullSkillsHtml);
+    const parseServices = tableParser<Service>(pullServicesHtml);
 
     const parseProjectRoles = tableParser<ProjectRole>(pullProjectRolesHtml);
     const parseProjectTypes = tableParser<ProjectType>(pullProjectTypesHtml);
     const parseProjectStacks = tableParser<ProjectStack>(pullProjectStacksHtml);
+
 
     // Manage Data
 
@@ -97,12 +110,12 @@ export const homeService = async (): Promise<HomeData | undefined>  => {
       .sort((a, b) => Number(b.year) - Number(a.year))
       .slice(0, 3);
 
-
     return {
       ...parseProfile,
       roles: parseRoles,
       projects: projectNewest,
-      skills: parseSkills
+      skills: parseSkills,
+      services: parseServices
     };
   } catch (err) {
     if (err instanceof Error) {

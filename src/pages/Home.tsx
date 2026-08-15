@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import Hero from "../components/section/Hero";
 import CallToAction from "../components/section/CallToAction";
 import { homeService } from "../services/homeService";
-// import { HomeData } from "../types/page";
-import Preloader from "../components/Preloader";
 import SkillsMarquee from "../components/section/SkillsMarque";
 import NewestProject from "../components/section/NewestProject";
-import useDarkMode from "../hooks/useDarkMode";
-import { useTheme } from "../context/ThemeContext";
+import Services from "../components/section/Services";
+import HeroSkeleton from "../components/sekeleton/skeleton-section/HeroSkeleton";
+import NewestProjectSkeleton from "../components/sekeleton/skeleton-section/NewestProjectSkeleton";
+import SkillsMarqueeSkeleton from "../components/sekeleton/skeleton-section/SkillsMarqueSkeleton";
+import ServicesSkeleton from "../components/sekeleton/skeleton-section/ServicesSkeleton";
 
 export default function Home() {
 
@@ -26,33 +27,44 @@ export default function Home() {
   }, []);
 
 
-  if (!homeData) {
-    return <Preloader isLoading={true} />;
-  }
-
-
-  const {
-    name,
-    photo_url,
-    summary,
-    roles,
-    projects,
-    skills
-  } = homeData;
-
-
   return (
     <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
 
-      <Hero
-        name={name}
-        photo_url={photo_url}
-        summary={summary}
-        roles={roles}
-      />
+      {homeData ? (
+        <Hero
+          name={homeData.name}
+          photo_url={homeData.photo_url}
+          summary={homeData.summary}
+          roles={homeData.roles}
+        />
+      ) : (
+        <HeroSkeleton />
+      )}
 
-      <NewestProject projects={projects} />
-      <SkillsMarquee skills={skills} />
+      {
+        homeData ? (
+          <NewestProject projects={homeData.projects} />
+
+        ) : (
+          <NewestProjectSkeleton />
+        )
+      }
+
+      {
+        homeData ? (
+          <SkillsMarquee skills={homeData.skills} />
+        ) : <SkillsMarqueeSkeleton />
+      }
+
+      {
+        homeData ? (
+          <Services services={homeData.services} />
+
+        ) : (
+          <ServicesSkeleton />
+        )
+      }
+
       <CallToAction />
 
     </section>

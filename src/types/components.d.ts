@@ -117,3 +117,11 @@ interface ConnectionProps {
   social_medias?: SocialMedia[];
   availability: string;
 }
+
+interface ServicesProps {
+  services?: ServiceItem[];
+}
+
+interface ServiceProps {
+  service?: ServiceItem;
+}

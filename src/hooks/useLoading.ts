@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 
+const MIN_DISPLAY_MS = 1200;
+
 export default function useLoading() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  const [isAppReady, setIsAppReady] = useState(false);
 
   useEffect(() => {
-    const minDelay = new Promise((resolve) => setTimeout(resolve, 1000));
-    const pageLoad = new Promise((resolve) => {
-      if (document.readyState === "complete") {
-        resolve(true);
-      } else {
-        window.addEventListener("load", () => resolve(true), { once: true });
-      }
-    });
+    setIsAppReady(true);
 
-    Promise.all([minDelay, pageLoad]).then(() => setIsLoading(false));
+    const timer = setTimeout(() => {
+      setMinTimeElapsed(true);
+    }, MIN_DISPLAY_MS);
+
+    return () => clearTimeout(timer);
   }, []);
+
+  const isLoading = !isAppReady || !minTimeElapsed;
 
   return { isLoading };
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Portfolio from "../components/section/Portfolio";
 import { portfolioService } from "../services/portfolioService";
-import Preloader from "../components/Preloader";
+import PortfolioSkeleton from "../components/sekeleton/skeleton-section/PortfolioSkeleton";
 
 export default function Showcase() {
 
@@ -22,16 +22,14 @@ export default function Showcase() {
     }, []);
 
 
-      if (!showcase) {
-        return <Preloader isLoading={true} />;
-      }
-
-    const { portfolio } = showcase;
-
-
     return (
         <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
-            <Portfolio projects={portfolio} />
+            {showcase ? (
+                <Portfolio projects={showcase.portfolio} />
+
+            ) : (
+                <PortfolioSkeleton />
+            )}
         </section>
     );
 }
