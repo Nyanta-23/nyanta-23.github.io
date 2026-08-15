@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAssetUrl } from "../helpers/helper";
 
 const EXTENSIONS = ["png", "jpg"];
+const CACHE_PREFIX = "assetImages:";
 
 function probeImage(url: string): Promise<boolean> {
   return new Promise((resolve) => {
@@ -24,6 +25,25 @@ async function resolveIndexUrl(
   return null;
 }
 
+function readCache(basePath: string): string[] | null {
+  try {
+    const raw = sessionStorage.getItem(CACHE_PREFIX + basePath);
+    if (!raw) return null;
+    return JSON.parse(raw) as string[];
+  } catch (err) {
+    console.error("Gagal membaca cache sessionStorage:", err);
+    return null;
+  }
+}
+
+function writeCache(basePath: string, images: string[]) {
+  try {
+    sessionStorage.setItem(CACHE_PREFIX + basePath, JSON.stringify(images));
+  } catch (err) {
+    console.error("Gagal menyimpan cache sessionStorage:", err);
+  }
+}
+
 export default function useAssetImages(
   basePath?: string | null,
   maxCount = 35,
@@ -36,6 +56,13 @@ export default function useAssetImages(
 
     if (!basePath) {
       setImages([]);
+      setIsLoading(false);
+      return;
+    }
+
+    const cached = readCache(basePath);
+    if (cached) {
+      setImages(cached);
       setIsLoading(false);
       return;
     }
@@ -54,6 +81,7 @@ export default function useAssetImages(
       if (!cancelled) {
         setImages(found);
         setIsLoading(false);
+        writeCache(basePath, found);
       }
     })();
 

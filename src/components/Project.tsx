@@ -37,7 +37,7 @@ export default function Project({ project }: ProjectProps) {
             <img
               src={icon}
               alt="Loading"
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full animate-spin opacity-70"
+              className="w-10 h-10 sm:w-24 sm:h-24 rounded-full animate-spin opacity-70"
             />
           </div>
         ) : images.length === 0 ? (
@@ -45,14 +45,14 @@ export default function Project({ project }: ProjectProps) {
             <img
               src={icon}
               alt="No preview"
-              className="w-8 h-8 sm:w-10 sm:h-10 opacity-40"
+              className="w-10 h-10 sm:w-24 sm:h-24 opacity-40 rounded-full"
             />
           </div>
         ) : images.length === 1 ? (
           <img
             src={images[0]}
             alt={name}
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
+            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300 rounded-full"
             loading="lazy"
           />
         ) : (

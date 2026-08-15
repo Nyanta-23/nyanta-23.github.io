@@ -4,7 +4,9 @@ import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
 import { getSheet } from "./getSheet";
 
-export const portfolioService = async (): Promise<PortfolioData | undefined> => {
+export const portfolioService = async (): Promise<
+  PortfolioData | undefined
+> => {
   try {
     // Raw Data
     const navSheet = await getNavigationSheets();
@@ -36,16 +38,25 @@ export const portfolioService = async (): Promise<PortfolioData | undefined> => 
     )?.gid;
 
     // HTML Data
-    const pullProfileHtml = await getSheet(gidProfileSheet);
-
-    const pullProjectsHtml = await getSheet(gidProjectsSheet);
-    const pullRolesHtml = await getSheet(gidRolesSheet);
-    const pullTypeOfProjectsHtml = await getSheet(gidTypeOfProjectsSheet);
-    const pullSkillsHtml = await getSheet(gidSkillsSheet);
-
-    const pullProjectRolesHtml = await getSheet(gidProjectRolesSheet);
-    const pullProjectTypesHtml = await getSheet(gidProjectTypesSheet);
-    const pullProjectStacksHtml = await getSheet(gidProjectStacksSheet);
+    const [
+      pullProfileHtml,
+      pullProjectsHtml,
+      pullRolesHtml,
+      pullTypeOfProjectsHtml,
+      pullSkillsHtml,
+      pullProjectRolesHtml,
+      pullProjectTypesHtml,
+      pullProjectStacksHtml,
+    ] = await Promise.all([
+      getSheet(gidProfileSheet),
+      getSheet(gidProjectsSheet),
+      getSheet(gidRolesSheet),
+      getSheet(gidTypeOfProjectsSheet),
+      getSheet(gidSkillsSheet),
+      getSheet(gidProjectRolesSheet),
+      getSheet(gidProjectTypesSheet),
+      getSheet(gidProjectStacksSheet),
+    ]);
 
     // Data JSON
 

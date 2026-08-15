@@ -16,7 +16,6 @@ export default function Bio({ bio, bio_heading }: BioProps) {
                     dangerouslySetInnerHTML={{ __html: bio ?? "" }}
                 />
 
-
             </div>
         </section>
     );

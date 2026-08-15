@@ -13,9 +13,10 @@ export const contactService = async (): Promise<ContactData | undefined> => {
       navSheet,
     )?.gid;
 
-    const pullProfileHtml = await getSheet(gidProfileSheet);
-
-    const pullSocialMediasHtml = await getSheet(gidSocialMediasSheet);
+    const [pullProfileHtml, pullSocialMediasHtml] = await Promise.all([
+      getSheet(gidProfileSheet),
+      getSheet(gidSocialMediasSheet),
+    ]);
 
     const parseProfile =
       keyValueParser<Omit<ContactData, "social_medias">>(pullProfileHtml);
