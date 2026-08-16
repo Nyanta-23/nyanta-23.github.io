@@ -7,17 +7,19 @@ function getElapsedSinceLastSent(): number | null {
   return Date.now() - Number(lastSent);
 }
 
-export function canSendEmail(): boolean {
+function canSendEmail(): boolean {
   const elapsed = getElapsedSinceLastSent();
   return elapsed === null || elapsed >= COOLDOWN;
 }
 
-export function getRemainingCooldown(): number {
+function getRemainingCooldown(): number {
   const elapsed = getElapsedSinceLastSent();
   if (elapsed === null) return 0;
   return Math.max(0, Math.ceil((COOLDOWN - elapsed) / 1000));
 }
 
-export function saveLastSentTime(): void {
+function saveLastSentTime(): void {
   localStorage.setItem(STORAGE_KEY, Date.now().toString());
 }
+
+export { canSendEmail, getRemainingCooldown, saveLastSentTime };

@@ -9,6 +9,7 @@ import HeroSkeleton from "../components/sekeleton/skeleton-section/HeroSkeleton"
 import NewestProjectSkeleton from "../components/sekeleton/skeleton-section/NewestProjectSkeleton";
 import SkillsMarqueeSkeleton from "../components/sekeleton/skeleton-section/SkillsMarqueSkeleton";
 import ServicesSkeleton from "../components/sekeleton/skeleton-section/ServicesSkeleton";
+import FadeIn from "../components/FadeIn";
 
 export default function Home() {
 
@@ -31,38 +32,38 @@ export default function Home() {
     <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
 
       {homeData ? (
-        <Hero
-          name={homeData.name}
-          photo_url={homeData.photo_url}
-          summary={homeData.summary}
-          roles={homeData.roles}
-        />
-      ) : (
-        <HeroSkeleton />
-      )}
+        <FadeIn>
+          <Hero
+            name={homeData.name}
+            photo_url={homeData.photo_url}
+            summary={homeData.summary}
+            roles={homeData.roles}
+          />
+        </FadeIn>
+      ) : <HeroSkeleton />}
 
       {
         homeData ? (
-          <NewestProject projects={homeData.projects} />
-
-        ) : (
-          <NewestProjectSkeleton />
-        )
+          <FadeIn>
+            <NewestProject projects={homeData.projects} />
+          </FadeIn>
+        ) : <NewestProjectSkeleton />
       }
 
       {
         homeData ? (
-          <SkillsMarquee skills={homeData.skills} />
+          <FadeIn>
+            <SkillsMarquee skills={homeData.skills} />
+          </FadeIn>
         ) : <SkillsMarqueeSkeleton />
       }
 
       {
         homeData ? (
-          <Services services={homeData.services} />
-
-        ) : (
-          <ServicesSkeleton />
-        )
+          <FadeIn>
+            <Services services={homeData.services} />
+          </FadeIn>
+        ) : <ServicesSkeleton />
       }
 
       <CallToAction />

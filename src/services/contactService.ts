@@ -1,8 +1,8 @@
 import { getGidFromNavigationSheet } from "../helpers/helper";
-import { keyValueParser } from "../parsers/keyValueParser";
-import { tableParser } from "../parsers/tableParser";
+import { keyValueParserGviz, tableParserGviz } from "../parsers/gvizParser";
 import { getNavigationSheets } from "./getNavigationSheet";
-import { getSheet } from "./getSheet";
+import { getSheet } from "./pullData";
+// import { getSheet } from "./getSheet";
 
 export const contactService = async (): Promise<ContactData | undefined> => {
   try {
@@ -19,9 +19,9 @@ export const contactService = async (): Promise<ContactData | undefined> => {
     ]);
 
     const parseProfile =
-      keyValueParser<Omit<ContactData, "social_medias">>(pullProfileHtml);
+      keyValueParserGviz<Omit<ContactData, "social_medias">>(pullProfileHtml);
 
-    const parseSocialMedias = tableParser<SocialMedia>(pullSocialMediasHtml);
+    const parseSocialMedias = tableParserGviz<SocialMedia>(pullSocialMediasHtml);
 
     return {
       ...parseProfile,
