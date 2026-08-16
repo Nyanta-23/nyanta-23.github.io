@@ -31,7 +31,7 @@ export default function Profile() {
 
 
     return (
-        <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">z
+        <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
 
             {profileData ? (
                 <FadeIn>
