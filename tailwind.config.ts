@@ -12,13 +12,13 @@ export default {
       md: "768px",
       // => @media (min-width: 768px) { ... }
       nav: "1100px",
-      
+
       lg: "1024px",
       // => @media (min-width: 1024px) { ... }
 
       xl: "1280px",
       // => @media (min-width: 1280px) { ... }
-      
+
       "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
     },
@@ -81,9 +81,14 @@ export default {
         "blob-1": "blob-1 6s ease-in-out infinite",
         "blob-2": "blob-2 7s ease-in-out infinite",
         "blob-3": "blob-3 5s ease-in-out infinite",
+        "fade-in": "fadeIn 0.5s ease-out forwards",
       },
 
       keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
         marquee: {
           "0%": {
             transform: "translateX(0%)",

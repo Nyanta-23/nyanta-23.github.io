@@ -1,8 +1,10 @@
 import { getGidFromNavigationSheet } from "../helpers/helper";
-import { keyValueParser } from "../parsers/keyValueParser";
-import { tableParser } from "../parsers/tableParser";
+import { keyValueParserGviz, tableParserGviz } from "../parsers/gvizParser";
+// import { keyValueParser } from "../parsers/keyValueParser";
+// import { tableParser } from "../parsers/tableParser";
 import { getNavigationSheets } from "./getNavigationSheet";
-import { getSheet } from "./getSheet";
+import { getSheet } from "./pullData";
+// import { getSheet } from "./getSheet";
 
 export const profileService = async (): Promise<ProfileData | undefined> => {
   try {
@@ -71,30 +73,28 @@ export const profileService = async (): Promise<ProfileData | undefined> => {
     // Data JSON
 
     const parseProfile =
-      keyValueParser<
+      keyValueParserGviz<
         Omit<
           ProfileData,
           "skill_groups" | "educations" | "certifications" | "experiences"
         >
       >(pullProfileHtml);
 
-    const parseSkillGroups = tableParser<SkillGroup>(pullSkillGroupsHtml);
-    const parseSkills = tableParser<Skill>(pullSkillsHtml);
-    const parseRoles = tableParser<Role>(pullRolesHtml);
-    const parseExperiences = tableParser<Experience>(pullExperiencesHtml);
-    const parseEducations = tableParser<Education>(pullEducationsHtml);
-    const parseCertifications = tableParser<Certification>(
+    const parseSkillGroups = tableParserGviz<SkillGroup>(pullSkillGroupsHtml);
+    const parseSkills = tableParserGviz<Skill>(pullSkillsHtml);
+    const parseRoles = tableParserGviz<Role>(pullRolesHtml);
+    const parseExperiences = tableParserGviz<Experience>(pullExperiencesHtml);
+    const parseEducations = tableParserGviz<Education>(pullEducationsHtml);
+    const parseCertifications = tableParserGviz<Certification>(
       pullCertificationsHtml,
     );
 
-    const parseSkillGroupTags = tableParser<SkillGroupTag>(
+    const parseSkillGroupTags = tableParserGviz<SkillGroupTag>(
       pullSkillGroupTagsHtml,
     );
-    const parseExperienceRoles = tableParser<ExperienceRole>(
+    const parseExperienceRoles = tableParserGviz<ExperienceRole>(
       pullExperienceRolesHtml,
     );
-
-    // console.log(parseExperienceRoles);
 
     // Manage Data
 
@@ -129,8 +129,6 @@ export const profileService = async (): Promise<ProfileData | undefined> => {
     const certifications = parseCertifications.map((certification) => ({
       ...certification,
     }));
-
-    console.log(experiences);
 
     return {
       ...parseProfile,

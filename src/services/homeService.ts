@@ -1,9 +1,7 @@
 import { getGidFromNavigationSheet } from "../helpers/helper";
-import { keyValueParser } from "../parsers/keyValueParser";
-import { tableParser } from "../parsers/tableParser";
-// import { HomeData, Role } from "../types/page";
+import { keyValueParserGviz, tableParserGviz } from "../parsers/gvizParser";
 import { getNavigationSheets } from "./getNavigationSheet";
-import { getSheet } from "./getSheet";
+import { getSheet } from "./pullData";
 
 export const homeService = async (): Promise<HomeData | undefined> => {
   try {
@@ -64,17 +62,17 @@ export const homeService = async (): Promise<HomeData | undefined> => {
     // Data JSON
 
     const parseProfile =
-      keyValueParser<Omit<HomeData, "roles">>(pullProfileHtml);
+      keyValueParserGviz<Omit<HomeData, "roles">>(pullProfileHtml);
 
-    const parseRoles = tableParser<Role>(pullRolesHtml);
-    const parseProjects = tableParser<Project>(pullProjectsHtml);
-    const parseTypeOfProjects = tableParser<Type>(pullTypeOfProjectsHtml);
-    const parseSkills = tableParser<Skill>(pullSkillsHtml);
-    const parseServices = tableParser<Service>(pullServicesHtml);
+    const parseRoles = tableParserGviz<Role>(pullRolesHtml);
+    const parseProjects = tableParserGviz<Project>(pullProjectsHtml);
+    const parseTypeOfProjects = tableParserGviz<Type>(pullTypeOfProjectsHtml);
+    const parseSkills = tableParserGviz<Skill>(pullSkillsHtml);
+    const parseServices = tableParserGviz<Service>(pullServicesHtml);
 
-    const parseProjectRoles = tableParser<ProjectRole>(pullProjectRolesHtml);
-    const parseProjectTypes = tableParser<ProjectType>(pullProjectTypesHtml);
-    const parseProjectStacks = tableParser<ProjectStack>(pullProjectStacksHtml);
+    const parseProjectRoles = tableParserGviz<ProjectRole>(pullProjectRolesHtml);
+    const parseProjectTypes = tableParserGviz<ProjectType>(pullProjectTypesHtml);
+    const parseProjectStacks = tableParserGviz<ProjectStack>(pullProjectStacksHtml);
 
 
     // Manage Data

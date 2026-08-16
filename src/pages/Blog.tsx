@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import UnderConstruction from "../components/section/Underconstruction";
-import { blogService } from "../services/blogService";
-import { testGetSHeet } from "../services/testGetSheet";
+// import { blogService } from "../services/blogService";
+// import { testGetSHeet } from "../services/testGetSheet";
 
 export default function Blog() {
 
@@ -12,7 +12,7 @@ export default function Blog() {
     // useEffect(() => {
 
     //     const loadDataProfile = async () => {
-    //         const data = await testGetSHeet();
+    //         const data = await blogService();
 
     //         setBlogData(data);
     //     }
@@ -22,9 +22,6 @@ export default function Blog() {
 
     
     // console.log(blogData)
-
-
-
 
 
     return (
