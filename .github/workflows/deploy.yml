@@ -32,6 +32,7 @@ jobs:
       - run: npm run build
         env:
           VITE_SHEET_HTML: ${{ vars.VITE_SHEET_HTML }}
+          VITE_SHEET_GVIZ: ${{ vars.VITE_SHEET_GVIZ }}
           VITE_USERNAME_GITHUB: ${{ vars.VITE_USERNAME_GITHUB }}
           VITE_REPOSITORY_GITHUB: ${{ vars.VITE_REPOSITORY_GITHUB }}
           VITE_BRANCH_GITHUB: ${{ vars.VITE_BRANCH_GITHUB }}
