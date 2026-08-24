@@ -118,12 +118,16 @@ export default function Project({ project }: ProjectProps) {
             const skill = tech.skill;
 
             return (
-              <SkillIcon
+              <div
                 key={tech.id}
-                icon={skill?.icon}
-                // color={skill.color}
-                className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
-              />
+                className="grayscale brightness-0 dark:invert group-hover:grayscale-0 group-hover:brightness-100 dark:group-hover:invert-0 transition-all duration-200"
+              >
+                <SkillIcon
+                  icon={skill?.icon}
+                  color={skill?.color}
+                  className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
+                />
+              </div>
             );
           })}
         </div>
