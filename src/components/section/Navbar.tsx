@@ -1,24 +1,32 @@
-import { Clipboard, Download, House, Moon, Rss, Sun, User, Contact, ChevronDown, ChevronUp } from "lucide-react";
+import { Download, Moon, Sun, ChevronDown, ChevronUp } from "lucide-react";
 import Button from "../Button";
 import NyantaBlackIcon from "../../assets/icons/nyanta-black.svg";
 import NyantaWhiteIcon from "../../assets/icons/nyanta-white.svg";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
-import { getThemedAsset } from "../../helpers/helper";
+import { getLucideIconByName, getThemedAsset } from "../../helpers/helper";
+import { useMainData } from "../../context/MainDataContext";
 
-const NAV_ASSETS = [
-  { number: 1, name: "home", icon: House, structure: "key-values", to: "/" },
-  { number: 2, name: "profile", icon: User, structure: "table", to: "/profile" },
-  { number: 3, name: "portfolio", icon: Clipboard, structure: "table", to: "/showcase" },
-  { number: 4, name: "blog", icon: Rss, structure: "table", to: "/blog" },
-  { number: 5, name: "contact", icon: Contact, structure: "key-values", to: "/contact" },
-];
+interface NavAsset {
+  number: number;
+  name: string;
+  icon: string;
+  structure: string;
+  to: string;
+}
 
-export default function Navbar() {
+interface NavbarProps {
+  navAssets: NavAsset[];
+}
+
+export default function Navbar({ navAssets }: NavbarProps) {
   const { pathname } = useLocation();
-  const [showNav, setShowNav] = useState<boolean>(false);
   const { theme, setTheme } = useTheme();
+
+  const { mainData } = useMainData();
+
+  const [showNav, setShowNav] = useState<boolean>(false);
 
   const logoSrc = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
 
@@ -36,7 +44,9 @@ export default function Navbar() {
           </Button>
         </div>
 
+
         <div className="flex justify-self-center">
+          <a href={mainData?.cv_url ?? "#"} target="_blank" rel="noonper noreferrer"></a>
           <Button
             className="nav-btn px-3 text-sm sm:text-base sm:px-4 md:px-5 py-2 sm:py-3 md:py-4 bg-on-background rounded-md text-on-primary flex items-center justify-between gap-2 sm:gap-3 md:gap-4 cursor-pointer"
           >
@@ -49,7 +59,7 @@ export default function Navbar() {
 
         <div className="flex items-center justify-self-end gap-4 xl:gap-6">
           <div className="hidden nav:flex items-center gap-5 xl:gap-7">
-            {NAV_ASSETS.map(({ number, to, name }) => {
+            {navAssets.map(({ number, to, name }) => {
               const isSelected = pathname === to;
 
               return (
@@ -97,8 +107,11 @@ export default function Navbar() {
             </Button>
 
             <div className="relative z-10 bg-background border-[1px] border-outline-variant rounded-[28px] shadow-elevated flex justify-between gap-5 px-4 py-2">
-              {NAV_ASSETS.map(({ number, to, icon: Icon }) => {
+              {navAssets.map(({ number, to, icon }) => {
                 const isSelected = pathname === to;
+
+                const Icon = getLucideIconByName(icon);
+
 
                 return (
                   <NavLink key={number} to={to ?? "*"}>

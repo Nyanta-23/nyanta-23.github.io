@@ -2,9 +2,9 @@ import Skeleton from "../../Skeleton";
 
 export default function SkillsSkeleton() {
   const groupPlaceholders = [
-    { id: "1", count: 7 },
+    { id: "1", count: 6 },
     { id: "2", count: 6 },
-    { id: "3", count: 2 },
+    { id: "3", count: 6 },
   ];
 
   return (
@@ -18,9 +18,9 @@ export default function SkillsSkeleton() {
           {groupPlaceholders.map((group) => (
             <div
               key={group.id}
-              className="grid grid-cols-1 sm:grid-cols-[120px_1fr] lg:grid-cols-[160px_1fr] gap-2 xs:gap-3 sm:gap-6 pb-6 xs:pb-8 border-b border-outline-variant last:border-b-0"
+              className="pb-6 xs:pb-8 border-b border-outline-variant last:border-b-0"
             >
-              <Skeleton className="h-3 xs:h-4 w-20" />
+              <Skeleton className="h-3 xs:h-4 w-20 mb-3 xs:mb-4" />
 
               <div className="flex flex-wrap gap-3 xs:gap-4">
                 {Array.from({ length: group.count }).map((_, idx) => (

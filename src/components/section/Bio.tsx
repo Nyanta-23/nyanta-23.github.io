@@ -1,14 +1,14 @@
-export default function Bio({ bio, bio_heading }: BioProps) {
+export default function Bio({ bio, bio_eyebrow, bio_title }: BioProps) {
 
     return (
         <section className="py-16 px-6">
             <div className="max-w-3xl mx-auto">
                 <p className="font-mono text-xs sm:text-sm tracking-[0.1em] uppercase text-on-surface-variant mb-6">
-                    About Me
+                    {bio_eyebrow}
                 </p>
 
                 <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-on-background leading-tight mb-8">
-                    {bio_heading}
+                    {bio_title}
                 </h2>
 
                 <div

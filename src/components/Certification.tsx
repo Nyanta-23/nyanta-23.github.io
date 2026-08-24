@@ -1,10 +1,10 @@
 import { Award, ExternalLink } from "lucide-react";
-import { formatPeriod } from "../helpers/helper";
+import { formatCredentialPeriod } from "../helpers/helper";
 
 export default function Certification({ credential }: CredentialProps) {
   const { id, name, subname, description, start_date, end_date, link } = credential;
 
-  const period = formatPeriod(start_date, end_date);
+  const period = formatCredentialPeriod(start_date, end_date);
 
   return (
 
@@ -35,10 +35,13 @@ export default function Certification({ credential }: CredentialProps) {
             {subname}
           </p>
 
-          <div className="flex items-center justify-between gap-2 flex-wrap">
+          <div className="flex items-center mb-3">
             <span className="font-mono text-[10px] text-on-surface-variant">
               {description}
             </span>
+          </div>
+
+          <div className="flex items-center">
             <span className="font-mono text-[10px] px-2 py-1 border border-outline-variant text-on-surface-variant">
               {period}
             </span>

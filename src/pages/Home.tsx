@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Hero from "../components/section/Hero";
 import CallToAction from "../components/section/CallToAction";
-import { homeService } from "../services/homeService";
 import SkillsMarquee from "../components/section/SkillsMarque";
 import NewestProject from "../components/section/NewestProject";
 import Services from "../components/section/Services";
@@ -10,20 +9,54 @@ import NewestProjectSkeleton from "../components/sekeleton/skeleton-section/Newe
 import SkillsMarqueeSkeleton from "../components/sekeleton/skeleton-section/SkillsMarqueSkeleton";
 import ServicesSkeleton from "../components/sekeleton/skeleton-section/ServicesSkeleton";
 import FadeIn from "../components/FadeIn";
+import { useMainData } from "../context/MainDataContext";
+import { heroService } from "../services/section/heroService";
+import { projectService } from "../services/section/projectService";
+import { skillsService } from "../services/section/skillService";
+import { businessService } from "../services/section/businessService";
+import CallToActionSkeleton from "../components/sekeleton/skeleton-section/CallToActionSkeleton";
 
 export default function Home() {
 
-  const [homeData, setHomeData] = useState<HomeData | null | undefined>(null);
+  const { mainData } = useMainData();
+
+
+  const [heroData, setHeroData] = useState<HeroSectionData | null | undefined>(null);
+  const [projectData, setProjectData] = useState<ProjectSectionData | null | undefined>(null);
+  const [skillData, setSkillData] = useState<SkillSectionData | null | undefined>(null);
+  const [serviceData, setServiceData] = useState<ServiceSectionData | null | undefined>(null)
 
   useEffect(() => {
 
-    const loadDataHome = async () => {
-      const data = await homeService();
+    const loadDataHero = async () => {
+      const data = await heroService();
 
-      setHomeData(data);
+      setHeroData(data);
     }
 
-    loadDataHome();
+    const loadDataProject = async () => {
+      const data = await projectService({ limit: 3 });
+
+      setProjectData(data);
+    }
+
+    const loadDataSkills = async () => {
+      const data = await skillsService();
+
+      setSkillData(data);
+    }
+
+    const loadDataService = async () => {
+      const data = await businessService();
+
+      setServiceData(data);
+    }
+
+
+    loadDataHero();
+    loadDataProject();
+    loadDataSkills();
+    loadDataService();
 
   }, []);
 
@@ -31,42 +64,70 @@ export default function Home() {
   return (
     <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
 
-      {homeData ? (
+      {heroData && mainData ? (
         <FadeIn>
           <Hero
-            name={homeData.name}
-            photo_url={homeData.photo_url}
-            summary={homeData.summary}
-            roles={homeData.roles}
+            name={mainData.name}
+            photo_url={mainData.photo_url}
+            summary={mainData.summary}
+            roles={heroData.roles}
+            hero_primary_button_icon={mainData.hero_primary_button_icon}
+            hero_secondary_button_icon={mainData.hero_secondary_button_icon}
+            hero_primary_button_label={mainData.hero_primary_button_label}
+            hero_secondary_button_label={mainData.hero_secondary_button_label}
+            cv_url={mainData.cv_url}
           />
         </FadeIn>
       ) : <HeroSkeleton />}
 
       {
-        homeData ? (
+        projectData && mainData ? (
           <FadeIn>
-            <NewestProject projects={homeData.projects} />
+            <NewestProject
+              newest_projects_title={mainData?.newest_projects_title}
+              newest_projects_view_all_icon={mainData?.newest_projects_view_all_icon}
+              newest_projects_view_all_label={mainData?.newest_projects_view_all_label}
+              projects={projectData.projects}
+            />
           </FadeIn>
         ) : <NewestProjectSkeleton />
       }
 
       {
-        homeData ? (
+        skillData ? (
           <FadeIn>
-            <SkillsMarquee skills={homeData.skills} />
+            <SkillsMarquee skills={skillData.skills} />
           </FadeIn>
         ) : <SkillsMarqueeSkeleton />
       }
 
       {
-        homeData ? (
+        serviceData && mainData ? (
           <FadeIn>
-            <Services services={homeData.services} />
+            <Services
+              services_title={mainData?.services_title}
+              services_eyebrow={mainData?.services_eyebrow}
+              services={serviceData.services}
+            />
           </FadeIn>
         ) : <ServicesSkeleton />
       }
 
-      <CallToAction />
+      {
+        mainData ? (
+          <FadeIn>
+            <CallToAction 
+              cta_title={mainData.cta_title}
+              cta_eyebrow={mainData.cta_title}
+              cta_description={mainData.cta_description}
+              cta_button_label={mainData.cta_button_label}
+              cta_button_icon_primary={mainData.cta_button_icon_primary}
+              cta_button_icon_secondary={mainData.cta_button_icon_secondary}
+            />
+          </FadeIn>
+        ) : <CallToActionSkeleton />
+      }
+
 
     </section>
   );

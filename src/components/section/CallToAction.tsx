@@ -1,9 +1,20 @@
 import { ArrowRight, Mail } from "lucide-react";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
+import { getIconByName } from "../../helpers/helper";
 
-export default function CallToAction() {
+export default function CallToAction({
+    cta_title,
+    cta_eyebrow,
+    cta_description,
+    cta_button_label,
+    cta_button_icon_primary,
+    cta_button_icon_secondary
+}: CallToActionProps) {
     const navigate = useNavigate();
+
+    const IconPrimary = getIconByName(cta_button_icon_primary ? cta_button_icon_primary : "");
+    const IconSecondary = getIconByName(cta_button_icon_secondary ? cta_button_icon_secondary : "");
 
     return (
         <section className="my-6 sm:my-10 mx-4 xs:mx-6 sm:mx-10 lg:mx-16">
@@ -27,16 +38,15 @@ export default function CallToAction() {
 
                 <div className="relative z-10 flex flex-col items-center">
                     <p className="font-mono text-[10px] xs:text-xs sm:text-sm tracking-[0.1em] uppercase text-on-surface-variant mb-3 sm:mb-4">
-                        Open For Collaboration
+                        {cta_eyebrow}
                     </p>
 
                     <h2 className="font-serif text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-semibold text-on-surface leading-tight max-w-2xl mb-4 sm:mb-6">
-                        Let&apos;s Work Together
+                        {cta_title}
                     </h2>
 
                     <p className="text-on-surface-variant text-sm xs:text-base sm:text-lg max-w-xs xs:max-w-sm sm:max-w-md mb-8 sm:mb-10">
-                        Punya proyek atau ide yang ingin diwujudkan? Saya terbuka untuk
-                        diskusi, kolaborasi, maupun peluang kerja.
+                        {cta_description}
                     </p>
 
                     <Button
@@ -46,9 +56,12 @@ export default function CallToAction() {
                             background: "rgb(var(--color-surface-container-lowest) / 0.7)",
                         }}
                     >
-                        <Mail className="w-4 h-4 xs:w-[18px] xs:h-[18px] transition-transform duration-300" />
-                        <span>Hubungi Saya</span>
-                        <ArrowRight className="w-4 h-4 xs:w-[18px] xs:h-[18px] transition-transform duration-300" />
+                        {IconPrimary && <IconPrimary className="w-4 h-4 xs:w-[18px] xs:h-[18px] transition-transform duration-300" />}
+                        {/* <Mail className="w-4 h-4 xs:w-[18px] xs:h-[18px] transition-transform duration-300" /> */}
+                        <span>{cta_button_label}</span>
+                        {/* <ArrowRight className="w-4 h-4 xs:w-[18px] xs:h-[18px] transition-transform duration-300" /> */}
+                        {IconSecondary && <IconSecondary className="w-4 h-4 xs:w-[18px] xs:h-[18px] transition-transform duration-300" />}
+
                     </Button>
                 </div>
             </div>

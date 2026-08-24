@@ -8,6 +8,9 @@ import * as FiIcons from "react-icons/fi";
 import * as SiIcons from "react-icons/si";
 import * as TbIcons from "react-icons/tb";
 
+import * as LucideIcons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
 const ALL_ICONS: Record<string, unknown> = {
   ...AiIcons,
   ...BiIcons,
@@ -21,6 +24,13 @@ const ALL_ICONS: Record<string, unknown> = {
 function getIconByName(iconName: string) {
   const Icon = ALL_ICONS[iconName];
   return (Icon as typeof Code2) ?? Code2;
+}
+
+
+function getLucideIconByName(iconName?: string | null): LucideIcon | null {
+  if (!iconName) return null;
+  const Icon = (LucideIcons as unknown as Record<string, LucideIcon>)[iconName];
+  return Icon ?? null;
 }
 
 function getAssetUrl(path?: string | null): string {
@@ -80,7 +90,7 @@ function parseYearMonth(value?: string | null): Date | null {
 
 function formatMonthYear(date: Date | null): string {
   if (!date) return "Present";
-  return date.toLocaleDateString("id-ID", { month: "short", year: "numeric" });
+  return date.toLocaleDateString("en-En", { month: "short", year: "numeric" });
 }
 
 function formatPeriod(
@@ -93,71 +103,54 @@ function formatPeriod(
   return `${formatMonthYear(startDate)} - ${formatMonthYear(endDate)}`;
 }
 
-function getLatestPositionId(experiences: Experience[]): string | null {
-  let latestId: string | null = null;
-  let latestDate: Date | null = null;
-
-  experiences.forEach((experience) => {
-    experience.roles?.forEach((position) => {
-      const startDate = parseYearMonth(position.start_date);
-      if (!startDate) return;
-
-      const isOngoing = !position.end_date;
-
-      if (isOngoing) {
-        if (!latestDate || startDate > latestDate) {
-          latestDate = startDate;
-          latestId = position.id;
-        }
-      } else if (!latestId) {
-        if (!latestDate || startDate > latestDate) {
-          latestDate = startDate;
-          latestId = position.id;
-        }
-      }
-    });
-  });
-
-  return latestId;
+function formatMonthYearPeriod(date: Date | null): string | null {
+  if (!date) {
+    return null;
+  }
+  return date.toLocaleDateString("en-En", { month: "short", year: "numeric" });
 }
 
-function sortExperiencesByRecency(experiences: Experience[]): Experience[] {
-  const sorted = experiences.map((experience) => {
-    const sortedRoles = [...(experience.roles ?? [])].sort((a, b) => {
-      const dateA = parseYearMonth(a.start_date);
-      const dateB = parseYearMonth(b.start_date);
-      if (!dateA || !dateB) return 0;
-      return dateB.getTime() - dateA.getTime();
-    });
+function formatCredentialPeriod(
+  startDateRaw?: string | null,
+  endDateRaw?: string | null,
+): string {
+  const startDate = parseYearMonth(startDateRaw);
+  const startFormatted = formatMonthYearPeriod(startDate);
 
-    return { ...experience, roles: sortedRoles };
-  });
+  const hasEndDate = !!endDateRaw && endDateRaw.trim().length > 0;
 
-  return sorted.sort((expA, expB) => {
-    const latestA = parseYearMonth(expA.roles?.[0]?.start_date);
-    const latestB = parseYearMonth(expB.roles?.[0]?.start_date);
-    if (!latestA || !latestB) return 0;
-    return latestB.getTime() - latestA.getTime();
-  });
+  if (!hasEndDate) {
+    return `Issued ${startFormatted}`;
+  }
+
+  const endDate = parseYearMonth(endDateRaw);
+  const endFormatted = formatMonthYearPeriod(endDate);
+
+  return `Issued ${startFormatted} · Expired ${endFormatted}`;
 }
 
-function sortEducationByRecency(educations: Education[]): Education[] {
-  return [...educations].sort((a, b) => {
-    const dateA = parseYearMonth(a.start_date);
-    const dateB = parseYearMonth(b.start_date);
-    if (!dateA || !dateB) return 0;
-    return dateB.getTime() - dateA.getTime();
-  });
+function dateToSortableNumber(date: Date | null): number {
+  if (!date) return 0;
+  return date.getFullYear() * 100 + (date.getMonth() + 1);
 }
 
-function getLatestEducationId(educations: Education[]): string | null {
-  if (educations.length === 0) return null;
+// function sortEducationByRecency(educations: Education[]): Education[] {
+//   return [...educations].sort((a, b) => {
+//     const dateA = parseYearMonth(a.start_date);
+//     const dateB = parseYearMonth(b.start_date);
+//     if (!dateA || !dateB) return 0;
+//     return dateB.getTime() - dateA.getTime();
+//   });
+// }
 
-  const ongoing = educations.find((item) => !item.end_date);
-  if (ongoing) return ongoing.id;
+// function getLatestEducationId(educations: Education[]): string | null {
+//   if (educations.length === 0) return null;
 
-  return sortEducationByRecency(educations)[0]?.id ?? null;
-}
+//   const ongoing = educations.find((item) => !item.end_date);
+//   if (ongoing) return ongoing.id;
+
+//   return sortEducationByRecency(educations)[0]?.id ?? null;
+// }
 
 function getThemedAsset<T>(theme: boolean, lightAsset: T, darkAsset: T): T {
   return theme ? lightAsset : darkAsset;
@@ -172,9 +165,12 @@ export {
   formatTypes,
   parseYearMonth,
   formatPeriod,
-  getLatestPositionId,
-  sortExperiencesByRecency,
-  getLatestEducationId,
-  sortEducationByRecency,
-  getThemedAsset
+  formatCredentialPeriod,
+  // getLatestPositionId,
+  // sortExperiencesByRecency,
+  // getLatestEducationId,
+  // sortEducationByRecency,
+  getThemedAsset,
+  dateToSortableNumber,
+  getLucideIconByName
 };

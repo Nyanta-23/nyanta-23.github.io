@@ -1,8 +1,129 @@
+interface MainData {
+  // Sudah ada sebelumnya
+  bio: string | null;
+
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+  availability: string | null;
+
+  name: string | null;
+  photo_url: string | null;
+  summary: string | null;
+
+  cv_url: string | null;
+
+  // Baru ditambahkan
+  availability_status: string | null;
+  resume_url: string | null;
+  portfolio_persentation_url: string | null;
+
+  // Hero section
+  hero_primary_button_label: string | null;
+  hero_primary_button_icon: string | null;
+  hero_secondary_button_label: string | null;
+  hero_secondary_button_icon: string | null;
+
+  // Newest Projects section
+  newest_projects_title: string | null;
+  newest_projects_view_all_label: string | null;
+  newest_projects_view_all_icon: string | null;
+
+  // Services section
+  services_eyebrow: string | null;
+  services_title: string | null;
+
+  // CTA section
+  cta_eyebrow: string | null;
+  cta_title: string | null;
+  cta_description: string | null;
+  cta_button_label: string | null;
+  cta_button_icon_primary: string | null;
+  cta_button_icon_secondary: string | null;
+
+  // Bio Section
+  bio_eyebrow: string | null;
+  bio_title: string | null;
+
+  // Skills section
+  skills_eyebrow: string | null;
+  skills_title: string | null;
+
+  // Experience section
+  experience_eyebrow: string | null;
+  experience_title: string | null;
+
+  // Education section
+  education_eyebrow: string | null;
+  education_title: string | null;
+
+  // Certifications section
+  certifications_eyebrow: string | null;
+  certifications_title: string | null;
+
+  // Portfolio section
+  portfolio_eyebrow: string | null;
+  portfolio_title: string | null;
+  portfolio_description: string | null;
+
+  // Contact section
+  contact_eyebrow: string | null;
+  contact_title: string | null;
+  
+  contact_details_title: string | null;
+
+  // Contact form
+  contact_form_title: string | null;
+  contact_form_name_label: string | null;
+  contact_form_name_placeholder: string | null;
+  contact_form_email_label: string | null;
+  contact_form_email_placeholder: string | null;
+  contact_form_message_label: string | null;
+  contact_form_message_placeholder: string | null;
+  contact_form_button_label: string | null;
+}
+
+interface HeroSectionData {
+  roles: Role[];
+}
+
+interface ProjectSectionData {
+  projects: Project[];
+}
+
+interface SocialMediaSectionData {
+  social_medias: SocialMedia[];
+}
+
+interface ServiceSectionData {
+  services: Service[];
+}
+
+interface SkillSectionData {
+  skills: Skill[];
+}
+
+interface SkillGroupSectionData {
+  skill_groups: SkillGroup[];
+}
+
+interface CertificationSectionData {
+  certifications?: Certification[];
+}
+
+interface EducationSectionData {
+  educations?: Education[];
+}
+
+interface ExperienceSectionData {
+  experiences?: Experience[];
+}
+
 interface HomeData {
   name: string | null;
   photo_url: string | null;
   summary: string | null;
-  cv: string | null;
+  cv_url: string | null;
 
   roles?: Role[];
   projects?: Project[];
@@ -11,11 +132,11 @@ interface HomeData {
 }
 
 interface ContactData {
-  email: string;
-  phone: string;
-  location: string;
-  availability: string;
-  
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+  availability: string | null;
+
   social_medias?: SocialMedia[];
 }
 
@@ -30,7 +151,7 @@ interface ProfileData {
 }
 
 interface PortfolioData {
-  name: string;
+  name: string | null;
 
   portfolio: Project[];
 }

@@ -1,9 +1,8 @@
-import Bio from "../components/section/Bio";
-import Skills from "../components/section/Skills";
-import Experience from "../components/section/Experience";
 import { useEffect, useState } from "react";
-import { profileService } from "../services/profileService";
+import Bio from "../components/section/Bio";
+import Experience from "../components/section/Experience";
 import Academic from "../components/section/Academic";
+import Skills from "../components/section/Skills";
 import ProffessionalCredential from "../components/section/ProffessionalCredential";
 import BioSkeleton from "../components/sekeleton/skeleton-section/BioSkeleton";
 import SkillsSkeleton from "../components/sekeleton/skeleton-section/SkillsSkeleton";
@@ -11,21 +10,49 @@ import ExperienceSkeleton from "../components/sekeleton/skeleton-section/Experie
 import AcademicSkeleton from "../components/sekeleton/skeleton-section/AcademicSkeleton";
 import ProffessionalCredentialSkeleton from "../components/sekeleton/skeleton-section/ProffessionalCredential";
 import FadeIn from "../components/FadeIn";
+import { useMainData } from "../context/MainDataContext";
+import { skillGroupService } from "../services/section/skillGroupService";
+import { experienceService } from "../services/section/experienceService";
+import { educationService } from "../services/section/educationService";
+import { certificationService } from "../services/section/certificationService";
 
 export default function Profile() {
 
+    const { mainData } = useMainData();
 
-    const [profileData, setProfileData] = useState<ProfileData | null | undefined>(null);
+    const [skillGroupData, setSkillGroupData] = useState<SkillGroupSectionData | null | undefined>(null);
+    const [experienceData, setExperienceData] = useState<ExperienceSectionData | null | undefined>(null);
+    const [educationData, setEducationData] = useState<EducationSectionData | null | undefined>(null);
+    const [certificationData, setCertificationData] = useState<CertificationSectionData | null | undefined>(null);
 
 
     useEffect(() => {
 
-        const loadDataProfile = async () => {
-            const data = await profileService();
+        const loadDataSkillGroup = async () => {
+            const data = await skillGroupService();
 
-            setProfileData(data);
+            setSkillGroupData(data);
         }
-        loadDataProfile();
+        const loadDataExperience = async () => {
+            const data = await experienceService();
+
+            setExperienceData(data);
+        }
+        const loadDataEducation = async () => {
+            const data = await educationService();
+
+            setEducationData(data);
+        }
+        const loadDataCertification = async () => {
+            const data = await certificationService();
+
+            setCertificationData(data);
+        }
+
+        loadDataSkillGroup();
+        loadDataExperience();
+        loadDataEducation();
+        loadDataCertification();
 
     }, []);
 
@@ -33,35 +60,53 @@ export default function Profile() {
     return (
         <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
 
-            {profileData ? (
+            {mainData ? (
                 <FadeIn>
-                    <Bio bio={profileData.bio} bio_heading={profileData.bio_heading} />
+                    <Bio
+                        bio={mainData.bio}
+                        bio_title={mainData.bio_title}
+                        bio_eyebrow={mainData.bio_eyebrow}
+                    />
                 </FadeIn>
             ) : <BioSkeleton />}
 
-            {profileData ? (
+            {skillGroupData && mainData ? (
                 <FadeIn>
-
-                    <Skills skill_groups={profileData.skill_groups} />
+                    <Skills
+                        skills_eyebrow={mainData?.skills_eyebrow}
+                        skills_title={mainData?.skills_title}
+                        skill_groups={skillGroupData.skill_groups}
+                    />
                 </FadeIn>
             ) : <SkillsSkeleton />}
 
-            {profileData ? (
+            {experienceData && mainData ? (
                 <FadeIn>
-                    <Experience experiences={profileData.experiences} />
+                    <Experience
+                        experiences={experienceData?.experiences}
+                        experience_eyebrow={mainData?.experience_eyebrow}
+                        experience_title={mainData?.experience_title}
+                    />
                 </FadeIn>
             ) : <ExperienceSkeleton />}
 
-            {profileData ? (
+            {educationData && mainData ? (
                 <FadeIn>
-                    <Academic academics={profileData.educations} />
+                    <Academic
+                        academics={educationData.educations}
+                        education_eyebrow={mainData?.education_eyebrow}
+                        education_title={mainData?.education_title}
+                    />
                 </FadeIn>
             ) : <AcademicSkeleton />}
 
-            {profileData ? (
+            {certificationData && mainData ? (
                 <FadeIn>
-
-                    <ProffessionalCredential credentials={profileData.certifications} />
+                    <ProffessionalCredential
+                        certifications_eyebrow={mainData?.certifications_eyebrow}
+                        certifications_title={mainData?.certifications_title}
+                        credentials={certificationData.certifications}
+                    />
                 </FadeIn>
             ) : <ProffessionalCredentialSkeleton />}
 

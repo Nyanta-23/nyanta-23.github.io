@@ -2,8 +2,6 @@ import { GraduationCap } from "lucide-react";
 import { formatPeriod } from "../helpers/helper";
 
 export default function Education({ education, is_latest }: EducationProps) {
-
-
   const { name, subname, description, start_date, end_date, result } = education;
 
   const period = formatPeriod(start_date, end_date);
@@ -21,21 +19,21 @@ export default function Education({ education, is_latest }: EducationProps) {
             <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 md:w-[22px] md:h-[22px] text-on-background" />
           </div>
 
-          <div className="flex flex-col items-end gap-1">
-            <span className="font-mono text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 sm:py-1 border border-outline-variant text-on-surface-variant">
-              {period}
-            </span>
-            {is_latest && (
-              <span className="font-mono text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5 border border-on-background text-on-background uppercase tracking-wide">
-                Most Recent
-              </span>
-            )}
-          </div>
+          <span className="font-mono text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 sm:py-1 border border-outline-variant text-on-surface-variant">
+            {period}
+          </span>
         </div>
 
-        <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-semibold text-on-background leading-snug mb-1">
-          {name}
-        </h3>
+        <div className="flex items-center gap-2 mb-1">
+          <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-semibold text-on-background leading-snug">
+            {name}
+          </h3>
+          {is_latest && (
+            <span className="font-mono text-[8px] sm:text-[9px] px-1.5 py-0.5 bg-on-background text-background uppercase tracking-wide flex-shrink-0">
+              Current
+            </span>
+          )}
+        </div>
 
         <p className="font-mono text-[11px] sm:text-xs uppercase tracking-wide text-on-surface-variant mb-3 sm:mb-4">
           {subname}

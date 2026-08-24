@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-const MIN_DISPLAY_MS = 1200;
+const MIN_DISPLAY_MS = 800;
 
-export default function useLoading() {
+export default function useLoading(isDataReady: boolean) {
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
-  const [isAppReady, setIsAppReady] = useState(false);
+  // const [isAppReady, setIsAppReady] = useState(false);
 
   useEffect(() => {
-    setIsAppReady(true);
+    // setIsAppReady(true);
 
     const timer = setTimeout(() => {
       setMinTimeElapsed(true);
@@ -16,7 +16,7 @@ export default function useLoading() {
     return () => clearTimeout(timer);
   }, []);
 
-  const isLoading = !isAppReady || !minTimeElapsed;
+  const isLoading = !isDataReady || !minTimeElapsed;
 
   return { isLoading };
 }
