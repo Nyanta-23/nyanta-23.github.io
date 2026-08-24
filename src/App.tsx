@@ -6,13 +6,17 @@ import useLoading from "./hooks/useLoading";
 import Footer from "./components/section/Footer";
 import navAssetData from "./data/navbar.json";
 import { useMainData } from "./context/MainDataContext";
+import ThemeTransitionOverlay from "./components/ThemeTransitionOverlay";
+import { useTheme } from "./context/ThemeContext";
 
 export default function App() {
   const { mainData } = useMainData();
   const { isLoading } = useLoading(mainData !== null);
+  const { isTransitioning } = useTheme();
 
   return (
     <>
+      <ThemeTransitionOverlay isTransitioning={isTransitioning} />
       <Preloader isLoading={isLoading} />
 
       <section className="font-mono bg-background text-primary">

@@ -11,7 +11,7 @@
     transition-duration: 300ms;
   } */
 
-  body,
+  /* body,
   section,
   header,
   footer,
@@ -25,7 +25,7 @@
     transition-property: background-color, border-color, color;
     transition-timing-function: ease-in-out;
     transition-duration: 300ms;
-  }
+  } */
 
 
 

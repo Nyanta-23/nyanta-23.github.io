@@ -3,16 +3,17 @@ import useDarkMode from "../hooks/useDarkMode";
 
 interface ThemeContextType {
     theme: boolean;
-    setTheme: Dispatch<SetStateAction<boolean>>;
+    setTheme: (newTheme: boolean) => void;
+    isTransitioning: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-    const { theme, setTheme } = useDarkMode();
+    const { theme, setTheme, isTransitioning } = useDarkMode();
 
     return (
-        <ThemeContext.Provider value={{ theme, setTheme }}>
+        <ThemeContext.Provider value={{ theme, setTheme, isTransitioning }}>
             {children}
         </ThemeContext.Provider>
     );
