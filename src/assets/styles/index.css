@@ -5,8 +5,24 @@
 
 @layer base {
 
-  * {
+  /* * {
     transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+  } */
+
+  body,
+  section,
+  header,
+  footer,
+  nav,
+  main,
+  div,
+  button,
+  a,
+  input,
+  textarea {
+    transition-property: background-color, border-color, color;
     transition-timing-function: ease-in-out;
     transition-duration: 300ms;
   }
