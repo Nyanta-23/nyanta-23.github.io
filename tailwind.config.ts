@@ -82,6 +82,7 @@ export default {
         "blob-2": "blob-2 7s ease-in-out infinite",
         "blob-3": "blob-3 5s ease-in-out infinite",
         "fade-in": "fadeIn 0.5s ease-out forwards",
+        "pulse-bg": "pulseBg 1.2s ease-in-out infinite",
       },
 
       keyframes: {
@@ -110,6 +111,12 @@ export default {
         "blob-3": {
           "0%, 100%": { transform: "translate(0%, 0%) scale(1)" },
           "50%": { transform: "translate(10%, 20%) scale(1.1)" },
+        },
+        pulseBg: {
+          "0%, 100%": {
+            backgroundColor: "rgb(var(--color-surface-container-high))",
+          },
+          "50%": { backgroundColor: "rgb(var(--color-primary) / 0.5)" },
         },
       },
 
