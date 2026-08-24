@@ -70,6 +70,7 @@ export default function Home() {
             name={mainData.name}
             photo_url={mainData.photo_url}
             summary={mainData.summary}
+            status={mainData.status}
             roles={heroData.roles}
             hero_primary_button_icon={mainData.hero_primary_button_icon}
             hero_secondary_button_icon={mainData.hero_secondary_button_icon}
@@ -118,7 +119,7 @@ export default function Home() {
           <FadeIn>
             <CallToAction 
               cta_title={mainData.cta_title}
-              cta_eyebrow={mainData.cta_title}
+              cta_eyebrow={mainData.cta_eyebrow}
               cta_description={mainData.cta_description}
               cta_button_label={mainData.cta_button_label}
               cta_button_icon_primary={mainData.cta_button_icon_primary}

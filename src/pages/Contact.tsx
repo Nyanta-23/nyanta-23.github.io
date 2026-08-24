@@ -32,8 +32,8 @@ export default function Contact() {
                         phone={mainData.phone}
                         location={mainData.location}
                         social_medias={socialMediaData.social_medias}
-                        availability={mainData.availability}
                         contact_title={mainData.contact_title}
+                        contact_description={mainData.contact_description}
                         contact_eyebrow={mainData.contact_eyebrow}
                         
                         contact_details_title={mainData.contact_details_title}

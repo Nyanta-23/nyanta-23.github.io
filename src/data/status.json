@@ -1,0 +1,34 @@
+[
+  {
+    "id": 0,
+    "key": "unavailable",
+    "label": "Currently Unavailable",
+    "short_label": "Unavailable",
+    "color": "gray",
+    "description": "Not taking on new work at the moment. Feel free to reach out for future opportunities."
+  },
+  {
+    "id": 1,
+    "key": "selective",
+    "label": "Open to Select Opportunities",
+    "short_label": "Selective",
+    "color": "yellow",
+    "description": "Open to interesting projects and collaborations, but currently selective about new commitments."
+  },
+  {
+    "id": 2,
+    "key": "open_to_projects",
+    "label": "Open for Freelance & Collaboration",
+    "short_label": "Open for Projects",
+    "color": "blue",
+    "description": "Actively open to freelance projects, collaborations, and side gigs."
+  },
+  {
+    "id": 3,
+    "key": "open_to_all",
+    "label": "Open for Collaboration and Job Opportunities",
+    "short_label": "Fully Open",
+    "color": "green",
+    "description": "Open to freelance work, collaborations, and full-time job opportunities."
+  }
+]
