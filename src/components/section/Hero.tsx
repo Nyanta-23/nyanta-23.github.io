@@ -1,4 +1,4 @@
-import { ArrowRight, Download } from "lucide-react";
+// import { ArrowRight, Download } from "lucide-react";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import TypedText from "../TypedText";
