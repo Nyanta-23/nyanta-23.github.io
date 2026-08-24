@@ -109,7 +109,7 @@ export default function AvailabilityIndicator({ status }: AvailabilityIndicatorP
                 {availability.short_label}
               </span>
             </div>
-            <p className="text-xs xs:text-sm text-on-surface-variant leading-relaxed">
+            <p className="text-xs xs:text-sm text-on-surface-variant leading-relaxed text-justify">
               {availability.description}
             </p>
           </div>
