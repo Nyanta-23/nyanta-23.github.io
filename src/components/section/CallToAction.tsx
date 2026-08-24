@@ -1,7 +1,7 @@
 import { ArrowRight, Mail } from "lucide-react";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
-import { getIconByName } from "../../helpers/helper";
+import { getLucideIconByName } from "../../helpers/helper";
 
 export default function CallToAction({
     cta_title,
@@ -13,8 +13,8 @@ export default function CallToAction({
 }: CallToActionProps) {
     const navigate = useNavigate();
 
-    const IconPrimary = getIconByName(cta_button_icon_primary ? cta_button_icon_primary : "");
-    const IconSecondary = getIconByName(cta_button_icon_secondary ? cta_button_icon_secondary : "");
+    const IconPrimary = getLucideIconByName(cta_button_icon_primary ? cta_button_icon_primary : "");
+    const IconSecondary = getLucideIconByName(cta_button_icon_secondary ? cta_button_icon_secondary : "");
 
     return (
         <section className="my-6 sm:my-10 mx-4 xs:mx-6 sm:mx-10 lg:mx-16">
