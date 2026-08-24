@@ -23,15 +23,14 @@ export default function Project({ project }: ProjectProps) {
   return (
 
     <a
-
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col h-full z-10"
+      className="group flex flex-col h-full z-10 shadow-elevated rounded-md"
       onMouseEnter={pause}
       onMouseLeave={resume}
     >
-      <div className="w-full aspect-video bg-surface-container-high border border-outline-variant overflow-hidden relative">
+      <div className="w-full aspect-video bg-surface-container-high border border-outline-variant overflow-hidden relative group-hover:border-on-background rounded-t-md border-b-0 transition-colors duration-150">
         {isLoading ? (
           <div className="w-full h-full flex items-center justify-center">
             <img
@@ -83,14 +82,14 @@ export default function Project({ project }: ProjectProps) {
           </>
         )}
 
-        <div className="absolute top-2 left-2 xs:top-3 xs:left-3 bg-background/90 backdrop-blur-sm px-2 py-1 border border-outline-variant">
+        <div className="absolute top-2 left-2 xs:top-3 xs:left-3 bg-background/90 backdrop-blur-sm px-2 py-0.5 rounded-sm border border-outline-variant">
           <span className="font-mono text-[10px] text-on-background">
             {year}
           </span>
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col p-4 sm:p-6 border border-t-0 border-outline-variant group-hover:bg-background-ghost transition-colors duration-150">
+      <div className="flex-1 flex flex-col p-4 sm:p-6 border border-t-0 border-outline-variant bg-background-ghost/80 group-hover:bg-background-ghost transition-colors duration-150 group-hover:border-on-background rounded-b-md">
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="font-serif text-lg sm:text-xl font-semibold text-on-background">
             {name}

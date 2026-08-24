@@ -25,6 +25,7 @@ export default function Showcase() {
 
     }, []);
 
+    // console.log(project);
 
     return (
         <section className="px-4 sm:px-6 md:px-8 my-0 sm:my-5 md:my-7">
@@ -35,7 +36,6 @@ export default function Showcase() {
                         portfolio_title={mainData?.portfolio_title}
                         portfolio_eyebrow={mainData?.portfolio_eyebrow}
                         portfolio_description={mainData?.portfolio_description}
-
                     />
                 </FadeIn>
             ) : <PortfolioSkeleton />}

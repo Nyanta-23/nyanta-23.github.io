@@ -1,4 +1,4 @@
-import { ArrowRight, Mail } from "lucide-react";
+// import { ArrowRight, Mail } from "lucide-react";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import { getLucideIconByName } from "../../helpers/helper";
@@ -19,7 +19,7 @@ export default function CallToAction({
     return (
         <section className="my-6 sm:my-10 mx-4 xs:mx-6 sm:mx-10 lg:mx-16">
             <div
-                className="relative overflow-hidden px-4 xs:px-6 py-10 xs:py-12 sm:py-16 rounded-md flex flex-col items-center text-center mx-auto transition-shadow duration-500 ease-in-out hover:shadow-floating"
+                className="relative overflow-hidden px-4 xs:px-6 py-10 xs:py-12 sm:py-16 rounded-md flex flex-col items-center text-center mx-auto transition-shadow duration-500 ease-in-out hover:shadow-floating shadow-elevated"
                 style={{
                     background:
                         "linear-gradient(135deg, rgb(var(--color-surface-container-high)) 0%, rgb(var(--color-surface-container)) 100%)",

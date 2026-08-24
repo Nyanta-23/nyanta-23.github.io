@@ -13,13 +13,13 @@ export default function Education({ education, is_latest }: EducationProps) {
         ${is_latest ? "bg-on-background" : "bg-background"}`}
       />
 
-      <div className="border border-outline-variant p-4 sm:p-5 md:p-6 shadow-elevated hover:shadow-floating hover:bg-background transition-shadow duration-200">
+      <div className="rounded-md border border-outline-variant p-4 sm:p-5 md:p-6 shadow-elevated hover:shadow-floating hover:bg-background-ghost transition-shadow duration-200 bg-background-ghost/80 hover:border-on-background">
         <div className="flex items-start justify-between mb-4 sm:mb-5 md:mb-6">
           <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full border-2 border-charcoal-ink dark:border-pure-white flex items-center justify-center flex-shrink-0">
             <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 md:w-[22px] md:h-[22px] text-on-background" />
           </div>
 
-          <span className="font-mono text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 sm:py-1 border border-outline-variant text-on-surface-variant">
+          <span className="rounded-md font-mono text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 sm:py-1 border border-outline-variant text-on-surface-variant">
             {period}
           </span>
         </div>

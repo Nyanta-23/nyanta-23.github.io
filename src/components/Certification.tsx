@@ -14,7 +14,7 @@ export default function Certification({ credential }: CredentialProps) {
       rel="noopener noreferrer"
       className="block h-full"
     >
-      <div className="group flex gap-3 sm:gap-4 border border-outline-variant p-4 hover:bg-background-ghost hover:border-on-background transition-all duration-150 h-full">
+      <div className="group flex gap-3 sm:gap-4 border border-outline-variant p-4 bg-background-ghost/80 rounded-md hover:bg-background-ghost hover:border-on-background transition-all duration-150 h-full shadow-elevated">
         <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border-2 border-charcoal-ink dark:border-pure-white flex items-center justify-center flex-shrink-0">
           <Award className="w-4 h-4 sm:w-5 sm:h-5 text-on-background" />
         </div>
@@ -42,7 +42,7 @@ export default function Certification({ credential }: CredentialProps) {
           </div>
 
           <div className="flex items-center">
-            <span className="font-mono text-[10px] px-2 py-1 border border-outline-variant text-on-surface-variant">
+            <span className="font-mono text-[10px] px-2 py-1 border border-outline-variant text-on-surface-variant rounded-md">
               {period}
             </span>
           </div>

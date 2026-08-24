@@ -4,7 +4,7 @@ export default function Service({ service }: ServiceProps) {
 
     return (
         <section
-            className="border border-outline-variant p-6 hover:border-on-background hover:bg-background-ghost transition-all duration-150"
+            className="rounded-md border border-outline-variant p-6 bg-background-ghost/80 hover:border-on-background hover:bg-background-ghost transition-all duration-150 shadow-elevated"
         >
             <div className="w-12 h-12 rounded-full border-2 border-charcoal-ink dark:border-pure-white flex items-center justify-center mb-5">
                 <SkillIcon icon={service.icon} className="w-5 h-5" />

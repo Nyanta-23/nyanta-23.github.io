@@ -97,11 +97,11 @@ export default function Navbar({ navAssets }: NavbarProps) {
         <div className="nav:hidden fixed bottom-[4%] left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div
             className={`flex flex-col items-center transition-transform duration-300 ease-in-out
-            ${showNav ? "translate-y-0" : "translate-y-[calc(100%+16px)]"}`}
+            ${showNav ? "translate-y-0" : "translate-y-[calc(100%)]"}`}
           >
             <Button
               onClick={() => setShowNav(!showNav)}
-              className="relative z-0 w-24 bg-surface-container-high pt-2 pb-3 -mb-2 rounded-t-2xl flex items-center justify-center nav-btn"
+              className="relative z-0 w-40 bg-surface-container-high pt-2 pb-1.5 rounded-t-2xl flex items-center justify-center nav-btn"
             >
               {showNav ? (
                 <ChevronDown className="w-4 h-4" />
@@ -115,7 +115,6 @@ export default function Navbar({ navAssets }: NavbarProps) {
                 const isSelected = pathname === to;
 
                 const Icon = getLucideIconByName(icon);
-
 
                 return (
                   <NavLink key={number} to={to ?? "*"}>
