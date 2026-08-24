@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Project from "../Project";
-import { getIconByName } from "../../helpers/helper";
+import { getLucideIconByName } from "../../helpers/helper";
 
 export default function NewestProject({
   newest_projects_title,
@@ -11,7 +11,7 @@ export default function NewestProject({
 }: NewestProjectProps) {
   const navigate = useNavigate();
 
-    const Icon = getIconByName(newest_projects_view_all_icon ? newest_projects_view_all_icon : "");
+    const Icon = getLucideIconByName(newest_projects_view_all_icon ? newest_projects_view_all_icon : "");
 
   return (
     <section className="py-10 sm:py-16 px-4 xs:px-6">
