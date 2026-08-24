@@ -1,24 +1,24 @@
 import SkillIcon from "../Skill";
 
-export default function Skills({ skill_groups }: SkillProps) {
+export default function Skills({ skill_groups, skills_eyebrow, skills_title }: SkillProps) {
   return (
     <section className="py-10 sm:py-16 px-4 xs:px-6">
       <div className="max-w-3xl mx-auto">
         <p className="font-mono text-[10px] xs:text-xs sm:text-sm tracking-[0.1em] uppercase text-on-surface-variant mb-4 xs:mb-6">
-          Skills
+          {skills_eyebrow}
         </p>
 
         <h2 className="font-serif text-2xl xs:text-3xl sm:text-4xl font-semibold text-on-background leading-tight mb-6 xs:mb-10">
-          What I work with
+          {skills_title}
         </h2>
 
         <div className="space-y-6 xs:space-y-8">
           {skill_groups?.map((group) => (
             <div
               key={group.id}
-              className="grid grid-cols-1 sm:grid-cols-[120px_1fr] lg:grid-cols-[160px_1fr] gap-2 xs:gap-3 sm:gap-6 pb-6 xs:pb-8 border-b border-outline-variant last:border-b-0"
+              className="pb-6 xs:pb-8 border-b border-outline-variant last:border-b-0"
             >
-              <p className="font-mono text-xs xs:text-sm text-on-surface-variant uppercase tracking-wide">
+              <p className="font-mono text-xs xs:text-sm text-on-surface-variant uppercase tracking-wide mb-3 xs:mb-4">
                 {group.name}
               </p>
 

@@ -4,7 +4,16 @@ import { sendEmail } from "../../services/email";
 import { canSendEmail, getRemainingCooldown, saveLastSentTime } from "../../services/ratelimit";
 
 
-export default function ContactForm() {
+export default function ContactForm({
+    contact_form_title,
+    contact_form_name_label,
+    contact_form_name_placeholder,
+    contact_form_email_label,
+    contact_form_email_placeholder,
+    contact_form_message_label,
+    contact_form_message_placeholder,
+    contact_form_button_label
+}: ContactEmailProps) {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -129,7 +138,7 @@ export default function ContactForm() {
     return (
         <div className="border border-outline-variant p-5 sm:p-6 md:p-8">
             <p className="font-mono text-xs uppercase tracking-wide text-on-surface-variant mb-4 sm:mb-5 md:mb-6">
-                Send a Message
+                {contact_form_title}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
@@ -149,13 +158,13 @@ export default function ContactForm() {
 
                 <div>
                     <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-1.5 sm:mb-2">
-                        Name
+                        {contact_form_name_label}
                     </label>
                     <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Your name"
+                        placeholder={contact_form_name_placeholder ?? "Name"}
                         className="w-full bg-transparent border-b border-outline-variant py-1.5 sm:py-2 text-on-background font-mono text-xs sm:text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150"
                     />
                 </div>
@@ -163,24 +172,24 @@ export default function ContactForm() {
 
                 <div>
                     <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-1.5 sm:mb-2">
-                        Email
+                        {contact_form_email_label}
                     </label>
                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="your@email.com"
+                        placeholder={contact_form_email_placeholder ?? "email"}
                         className="w-full bg-transparent border-b border-outline-variant py-1.5 sm:py-2 text-on-background font-mono text-xs sm:text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150"
                     />
                 </div>
 
                 <div>
                     <label className="font-mono text-xs uppercase tracking-wide text-on-surface-variant block mb-1.5 sm:mb-2">
-                        Message
+                        {contact_form_message_label}
                     </label>
                     <textarea
                         rows={4}
-                        placeholder="Tell me about your project..."
+                        placeholder={contact_form_message_placeholder ?? "message"}
                         className="w-full bg-transparent border-b border-outline-variant py-1.5 sm:py-2 text-on-background font-mono text-xs sm:text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-on-background transition-colors duration-150 resize-none"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
@@ -208,7 +217,7 @@ export default function ContactForm() {
                         ? "Sending..."
                         : cooldown > 0
                             ? `Wait ${cooldown}s`
-                            : "Send Message"}
+                            : contact_form_button_label}
                 </Button>
             </form>
         </div>

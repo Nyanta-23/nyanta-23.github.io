@@ -1,26 +1,21 @@
 import ExperienceEntry from "../ExperienceEntry";
-import { getLatestPositionId, sortExperiencesByRecency } from "../../helpers/helper";
 
-export default function Experience({ experiences }: ExperienceProps) {
-  if (!experiences) return null;
-
-  const sortedExperiences = sortExperiencesByRecency(experiences);
-
-  const latestPositionId = getLatestPositionId(experiences);
+export default function Experience({ experiences = [], experience_eyebrow, experience_title }: ExperienceProps) {
+  const latestPositionId = experiences[0]?.roles?.[0].id ?? null;
 
   return (
     <section className="py-10 sm:py-16 px-4 xs:px-6">
       <div className="max-w-3xl mx-auto">
         <p className="font-mono text-[10px] xs:text-xs sm:text-sm tracking-[0.1em] uppercase text-on-surface-variant mb-4 xs:mb-6">
-          Experience
+          {experience_eyebrow}
         </p>
 
         <h2 className="font-serif text-2xl xs:text-3xl sm:text-4xl font-semibold text-on-background leading-tight mb-8 xs:mb-12">
-          Where I&apos;ve worked
+          {experience_title}
         </h2>
 
         <div className="space-y-8 xs:space-y-14">
-          {sortedExperiences.map((company) => (
+          {experiences?.map((company) => (
             <ExperienceEntry
               key={company.id}
               experience={company}

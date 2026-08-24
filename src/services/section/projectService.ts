@@ -1,27 +1,39 @@
-import { getGidFromNavigationSheet } from "../helpers/helper";
-import { keyValueParserGviz, tableParserGviz } from "../parsers/gvizParser";
-import { getNavigationSheets } from "./getNavigationSheet";
-import { getSheet } from "./pullData";
+import { getGidFromNavigationSheet } from "../../helpers/helper";
+import { tableParserGviz } from "../../parsers/gvizParser";
+import { getNavigationSheets } from "../getNavigationSheet";
+import { getSheet } from "../pullData";
 
-export const homeService = async (): Promise<HomeData | undefined> => {
+interface ProjectServiceOptions {
+    limit?: number;
+    typeId?: string;
+    roleId?: string;
+    year?: number;
+}
+
+export const projectService = async (
+    options: ProjectServiceOptions = {}
+): Promise<
+  ProjectSectionData | undefined
+> => {
   try {
+    const {limit, typeId, roleId, year} = options;
+
     // Raw Data
-
     const navSheet = await getNavigationSheets();
-
-    const gidProfileSheet = getGidFromNavigationSheet("profile", navSheet)?.gid;
-    const gidRolesSheet = getGidFromNavigationSheet("roles", navSheet)?.gid;
 
     const gidProjectsSheet = getGidFromNavigationSheet(
       "projects",
       navSheet,
     )?.gid;
-    const gidProjectRolesSheet = getGidFromNavigationSheet(
-      "project_roles",
-      navSheet,
-    )?.gid;
+    const gidRolesSheet = getGidFromNavigationSheet("roles", navSheet)?.gid;
     const gidProjectTypesSheet = getGidFromNavigationSheet(
       "project_types",
+      navSheet,
+    )?.gid;
+    const gidSkillsSheet = getGidFromNavigationSheet("skills", navSheet)?.gid;
+
+    const gidProjectRolesSheet = getGidFromNavigationSheet(
+      "project_roles",
       navSheet,
     )?.gid;
     const gidTypeOfProjectsSheet = getGidFromNavigationSheet(
@@ -33,12 +45,8 @@ export const homeService = async (): Promise<HomeData | undefined> => {
       navSheet,
     )?.gid;
 
-    const gidSkillsSheet = getGidFromNavigationSheet("skills", navSheet)?.gid;
-    const gidServicesSheet = getGidFromNavigationSheet("services", navSheet)?.gid;
-
-    // Html Data
+    // HTML Data
     const [
-      pullProfileHtml,
       pullProjectsHtml,
       pullRolesHtml,
       pullTypeOfProjectsHtml,
@@ -46,9 +54,7 @@ export const homeService = async (): Promise<HomeData | undefined> => {
       pullProjectRolesHtml,
       pullProjectTypesHtml,
       pullProjectStacksHtml,
-      pullServicesHtml
     ] = await Promise.all([
-      getSheet(gidProfileSheet),
       getSheet(gidProjectsSheet),
       getSheet(gidRolesSheet),
       getSheet(gidTypeOfProjectsSheet),
@@ -56,28 +62,28 @@ export const homeService = async (): Promise<HomeData | undefined> => {
       getSheet(gidProjectRolesSheet),
       getSheet(gidProjectTypesSheet),
       getSheet(gidProjectStacksSheet),
-      getSheet(gidServicesSheet)
     ]);
 
     // Data JSON
 
-    const parseProfile =
-      keyValueParserGviz<Omit<HomeData, "roles">>(pullProfileHtml);
-
-    const parseRoles = tableParserGviz<Role>(pullRolesHtml);
     const parseProjects = tableParserGviz<Project>(pullProjectsHtml);
-    const parseTypeOfProjects = tableParserGviz<Type>(pullTypeOfProjectsHtml);
+    const parseRoles = tableParserGviz<Role>(pullRolesHtml);
+    const parseTypeOfProjects = tableParserGviz<TypeOfProject>(
+      pullTypeOfProjectsHtml,
+    );
     const parseSkills = tableParserGviz<Skill>(pullSkillsHtml);
-    const parseServices = tableParserGviz<Service>(pullServicesHtml);
 
-    const parseProjectRoles = tableParserGviz<ProjectRole>(pullProjectRolesHtml);
-    const parseProjectTypes = tableParserGviz<ProjectType>(pullProjectTypesHtml);
-    const parseProjectStacks = tableParserGviz<ProjectStack>(pullProjectStacksHtml);
-
+    const parseProjectRoles =
+      tableParserGviz<ProjectRole>(pullProjectRolesHtml);
+    const parseProjectTypes =
+      tableParserGviz<ProjectType>(pullProjectTypesHtml);
+    const parseProjectStacks = tableParserGviz<ProjectStack>(
+      pullProjectStacksHtml,
+    );
 
     // Manage Data
 
-    const projectNewest = parseProjects
+    let project = parseProjects
       .map((project) => ({
         ...project,
         roles: parseProjectRoles
@@ -105,15 +111,33 @@ export const homeService = async (): Promise<HomeData | undefined> => {
             skill: parseSkills.find((s) => s.id === ps.skill_id),
           })),
       }))
-      .sort((a, b) => Number(b.year) - Number(a.year))
-      .slice(0, 3);
+      .sort((a, b) => Number(b.year) - Number(a.year));
+
+      if (year !== undefined) {
+        project = project.filter((project) => Number(project.year) === year);
+      }
+
+      if (typeId) {
+        project = project.filter((project) => 
+            project.types.some((t) => t.type_id === typeId),
+        );
+      }
+
+      if (roleId) {
+        project = project.filter((project) => 
+            project.roles.some((r) => r.role_id === roleId),
+        );
+      }
+
+      if (limit !== undefined) {
+        project = project.slice(0, limit);
+      }
+
+
+
 
     return {
-      ...parseProfile,
-      roles: parseRoles,
-      projects: projectNewest,
-      skills: parseSkills,
-      services: parseServices
+      projects: project,
     };
   } catch (err) {
     if (err instanceof Error) {

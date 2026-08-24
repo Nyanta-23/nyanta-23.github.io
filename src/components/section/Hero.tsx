@@ -2,23 +2,36 @@ import { ArrowRight, Download } from "lucide-react";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import TypedText from "../TypedText";
-import { getAssetUrl, getThemedAsset } from "../../helpers/helper";
+import { getAssetUrl, getLucideIconByName, getThemedAsset } from "../../helpers/helper";
 import { useTheme } from "../../context/ThemeContext";
 import NyantaBlackIcon from "../../assets/icons/nyanta-black.svg";
 import NyantaWhiteIcon from "../../assets/icons/nyanta-white.svg";
-
+import { useState } from "react";
 export default function Hero({
   name,
   photo_url,
   summary,
   roles,
+  cv_url,
+  hero_primary_button_label,
+  hero_secondary_button_label,
+  hero_primary_button_icon,
+  hero_secondary_button_icon,
 }: HeroProps) {
+  const { theme } = useTheme();
+  const [imageBroken, setImageBroken] = useState(false);
+
   const navigate = useNavigate();
+
   const cdnAsset = getAssetUrl(photo_url);
 
-  const { theme } = useTheme();
+  const fallbackIcon = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
 
-  const image = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
+  const shouldShowFallback = !cdnAsset || imageBroken;
+
+
+  const PrimaryIcon = getLucideIconByName(hero_primary_button_icon);
+  const SecondaryIcon = getLucideIconByName(hero_secondary_button_icon);
 
   return (
     <section
@@ -26,11 +39,24 @@ export default function Hero({
         lg:flex-row-reverse lg:items-center lg:text-left lg:justify-center lg:gap-16 lg:max-w-6xl lg:mx-auto lg:pt-20"
     >
       <div className="relative mb-6 xs:mb-8 lg:mb-0 lg:flex-shrink-0">
-        <img
-          className="z-10 relative w-48 h-48 xs:w-64 xs:h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-md object-cover border-4 xs:border-[6px] border-charcoal-ink dark:border-pure-white"
-          src={cdnAsset ?? image}
-          alt={name ?? "This is my image profile."}
-        />
+
+        {shouldShowFallback ? (
+          <img
+            className="z-10 relative w-48 h-48 xs:w-64 xs:h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-md object-cover border-4 xs:border-[6px] border-charcoal-ink dark:border-pure-white"
+            src={fallbackIcon}
+            alt={name ?? "This is my image profile."}
+          />
+
+        ) : (
+          <img
+            className="z-10 relative w-48 h-48 xs:w-64 xs:h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-md object-cover border-4 xs:border-[6px] border-charcoal-ink dark:border-pure-white"
+            src={cdnAsset}
+            alt={name ?? "This is my image profile."}
+            onError={() => setImageBroken(true)}
+          />
+        )}
+
+
 
         <span className="z-20 absolute bottom-2 right-2 xs:bottom-3 xs:right-3 lg:bottom-5 lg:right-5 w-5 h-5 xs:w-6 xs:h-6 lg:w-7 lg:h-7 rounded-full bg-background border-2 border-charcoal-ink dark:border-pure-white flex items-center justify-center">
           <span className="w-2 h-2 xs:w-2.5 xs:h-2.5 lg:w-3 lg:h-3 rounded-full bg-green-500" />
@@ -57,14 +83,16 @@ export default function Hero({
             onClick={() => navigate("/showcase")}
             className="nav-btn flex items-center gap-2 px-5 py-2.5 xs:px-6 xs:py-3 rounded-md bg-primary text-on-primary cursor-pointer text-sm xs:text-base"
           >
-            <span>See all projects</span>
-            <ArrowRight className="w-4 h-4 xs:w-[18px] xs:h-[18px]" />
+            <span>{hero_primary_button_label}</span>
+            {/* <ArrowRight className="w-4 h-4 xs:w-[18px] xs:h-[18px]" /> */}
+           { PrimaryIcon && <PrimaryIcon className="w-4 h-4 xs:w-[18px] xs:h-[18px]" />}
           </Button>
 
-          <a href={"#"} target="_blank" rel="noopener noreferrer" download>
+          <a href={cv_url ?? "#"} target="_blank" rel="noopener noreferrer" download>
             <Button className="nav-btn flex items-center gap-2 px-5 py-2.5 xs:px-6 xs:py-3 rounded-md border border-outline-variant text-on-background cursor-pointer text-sm xs:text-base">
-              <span>Download CV</span>
-              <Download className="w-4 h-4 xs:w-[18px] xs:h-[18px]" />
+              <span>{hero_secondary_button_label}</span>
+              {/* <Download className="w-4 h-4 xs:w-[18px] xs:h-[18px]" /> */}
+              {SecondaryIcon && <SecondaryIcon className="w-4 h-4 xs:w-[18px] xs:h-[18px]" />}
             </Button>
           </a>
         </div>
