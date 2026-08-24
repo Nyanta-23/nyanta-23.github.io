@@ -3,7 +3,7 @@ import Button from "../Button";
 import NyantaBlackIcon from "../../assets/icons/nyanta-black.svg";
 import NyantaWhiteIcon from "../../assets/icons/nyanta-white.svg";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { getLucideIconByName, getThemedAsset } from "../../helpers/helper";
 import { useMainData } from "../../context/MainDataContext";
@@ -27,10 +27,16 @@ export default function Navbar({ navAssets }: NavbarProps) {
   const { mainData } = useMainData();
 
   const [showNav, setShowNav] = useState<boolean>(false);
+  const [showHint, setShowHint] = useState(true);
 
   const logoSrc = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
 
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setShowHint(false), 8000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <section className="fixed top-0 px-10 py-2 border-outline-variant border-b-[1px] w-full bg-background z-50">
@@ -83,7 +89,7 @@ export default function Navbar({ navAssets }: NavbarProps) {
           </div>
 
           <Button
-            className="bg-background text-on-surface border-outline-variant border-2 p-2 rounded-md nav-btn"
+            className="bg-surface-container-high text-on-surface border-outline-variant border-2 p-2 rounded-md nav-btn shadow-elevated"
             onClick={() => setTheme(!theme)}
           >
             {theme ? (
@@ -100,13 +106,16 @@ export default function Navbar({ navAssets }: NavbarProps) {
             ${showNav ? "translate-y-0" : "translate-y-[calc(100%)]"}`}
           >
             <Button
-              onClick={() => setShowNav(!showNav)}
-              className="relative z-0 w-40 bg-surface-container-high pt-2 pb-1.5 rounded-t-2xl flex items-center justify-center nav-btn"
+              onClick={() => {
+                setShowNav(!showNav);
+                setShowHint(false);
+              }}
+              className={`relative z-0 w-40 pt-2 pb-1.5 rounded-t-2xl flex items-center justify-center nav-btn shadow-elevated border border-outline-variant border-b-0 ${showHint ? "animate-pulse-bg" : "bg-surface-container-high"}`}
             >
               {showNav ? (
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-4 h-4 text-on-background" />
               ) : (
-                <ChevronUp className="w-4 h-4" />
+                <ChevronUp className="w-4 h-4 text-on-background" />
               )}
             </Button>
 
