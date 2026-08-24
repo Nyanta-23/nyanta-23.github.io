@@ -2,7 +2,7 @@ import { Download, Moon, Sun, ChevronDown, ChevronUp } from "lucide-react";
 import Button from "../Button";
 import NyantaBlackIcon from "../../assets/icons/nyanta-black.svg";
 import NyantaWhiteIcon from "../../assets/icons/nyanta-white.svg";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { getLucideIconByName, getThemedAsset } from "../../helpers/helper";
@@ -30,12 +30,16 @@ export default function Navbar({ navAssets }: NavbarProps) {
 
   const logoSrc = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
 
+  const navigate = useNavigate();
+
   return (
     <section className="fixed top-0 px-10 py-2 border-outline-variant border-b-[1px] w-full bg-background z-50">
       <div className="grid grid-cols-3 items-center">
 
         <div className="flex items-center justify-self-start">
-          <Button>
+          <Button
+            onClick={() => navigate("/")}
+          >
             <img
               className={`rounded-full w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20`}
               src={logoSrc}
