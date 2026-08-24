@@ -2,7 +2,6 @@ import ContactForm from "./ContactForm";
 import ContactInfo from "./ContactInfo";
 
 export default function Connection({
-    availability,
     email,
     phone,
     location,
@@ -17,7 +16,8 @@ export default function Connection({
     contact_form_email_placeholder,
     contact_form_message_label,
     contact_form_message_placeholder,
-    contact_form_button_label
+    contact_form_button_label,
+    contact_description
 }: ConnectionProps) {
 
     return (
@@ -32,7 +32,7 @@ export default function Connection({
                 </h1>
 
                 <p className="text-sm sm:text-base md:text-lg text-on-surface-variant leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-lg">
-                    {availability}
+                    {contact_description}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
@@ -41,6 +41,7 @@ export default function Connection({
                         phone={phone}
                         location={location}
                         social_medias={social_medias}
+                        contact_details_title={contact_details_title}
                     />
 
                     <ContactForm

@@ -42,6 +42,7 @@ interface HeroProps {
   summary?: string | null;
   roles?: Role[];
   cv_url: string | null;
+  status: string | null;
   hero_primary_button_label: string | null;
   hero_primary_button_icon: string | null;
   hero_secondary_button_label: string | null;
@@ -120,6 +121,7 @@ interface PortfolioProps {
 }
 
 interface ContactInfoProps {
+  contact_details_title: string | null;
   email: string | null;
   phone: string | null;
   location: string | null;
@@ -145,12 +147,12 @@ interface ConnectionProps {
   email: string | null;
   phone: string | null;
   location: string | null;
-  availability: string | null;
   social_medias?: SocialMedia[];
-
+  
   contact_eyebrow: string | null;
   contact_title: string | null;
-
+  contact_description: string | null;
+  
   contact_details_title: string | null;
 
   contact_form_title: string | null;

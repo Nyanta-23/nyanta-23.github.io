@@ -7,12 +7,14 @@ import { useTheme } from "../../context/ThemeContext";
 import NyantaBlackIcon from "../../assets/icons/nyanta-black.svg";
 import NyantaWhiteIcon from "../../assets/icons/nyanta-white.svg";
 import { useState } from "react";
+import AvailabilityIndicator from "../AvailabilityIndicator";
 export default function Hero({
   name,
   photo_url,
   summary,
   roles,
   cv_url,
+  status,
   hero_primary_button_label,
   hero_secondary_button_label,
   hero_primary_button_icon,
@@ -56,11 +58,12 @@ export default function Hero({
           />
         )}
 
+        {/* <span className="z-20 absolute bottom-2 right-2 xs:bottom-3 xs:right-3 lg:bottom-5 lg:right-5 w-5 h-5 xs:w-6 xs:h-6 lg:w-7 lg:h-7 rounded-full bg-background border-2 border-charcoal-ink dark:border-pure-white flex items-center justify-center">
+          <span className="w-2 h-2 xs:w-2.5 xs:h-2.5 lg:w-3 lg:h-3 rounded-full bg-gray-400" />
+        </span> */}
 
+        <AvailabilityIndicator status={status} />
 
-        <span className="z-20 absolute bottom-2 right-2 xs:bottom-3 xs:right-3 lg:bottom-5 lg:right-5 w-5 h-5 xs:w-6 xs:h-6 lg:w-7 lg:h-7 rounded-full bg-background border-2 border-charcoal-ink dark:border-pure-white flex items-center justify-center">
-          <span className="w-2 h-2 xs:w-2.5 xs:h-2.5 lg:w-3 lg:h-3 rounded-full bg-green-500" />
-        </span>
       </div>
 
       <div className="flex flex-col items-center lg:items-start">
@@ -85,7 +88,7 @@ export default function Hero({
           >
             <span>{hero_primary_button_label}</span>
             {/* <ArrowRight className="w-4 h-4 xs:w-[18px] xs:h-[18px]" /> */}
-           { PrimaryIcon && <PrimaryIcon className="w-4 h-4 xs:w-[18px] xs:h-[18px]" />}
+            {PrimaryIcon && <PrimaryIcon className="w-4 h-4 xs:w-[18px] xs:h-[18px]" />}
           </Button>
 
           <a href={cv_url ?? "#"} target="_blank" rel="noopener noreferrer" download>

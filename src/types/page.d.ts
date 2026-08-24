@@ -5,7 +5,7 @@ interface MainData {
   email: string | null;
   phone: string | null;
   location: string | null;
-  availability: string | null;
+  status: string | null;
 
   name: string | null;
   photo_url: string | null;
@@ -14,7 +14,6 @@ interface MainData {
   cv_url: string | null;
 
   // Baru ditambahkan
-  availability_status: string | null;
   resume_url: string | null;
   portfolio_persentation_url: string | null;
 
@@ -69,6 +68,7 @@ interface MainData {
   // Contact section
   contact_eyebrow: string | null;
   contact_title: string | null;
+  contact_description: string | null;
   
   contact_details_title: string | null;
 
@@ -135,7 +135,6 @@ interface ContactData {
   email: string | null;
   phone: string | null;
   location: string | null;
-  availability: string | null;
 
   social_medias?: SocialMedia[];
 }
