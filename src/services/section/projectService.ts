@@ -4,19 +4,17 @@ import { getNavigationSheets } from "../getNavigationSheet";
 import { getSheet } from "../pullData";
 
 interface ProjectServiceOptions {
-    limit?: number;
-    typeId?: string;
-    roleId?: string;
-    year?: number;
+  limit?: number;
+  typeId?: string;
+  roleId?: string;
+  year?: number;
 }
 
 export const projectService = async (
-    options: ProjectServiceOptions = {}
-): Promise<
-  ProjectSectionData | undefined
-> => {
+  options: ProjectServiceOptions = {},
+): Promise<ProjectSectionData | undefined> => {
   try {
-    const {limit, typeId, roleId, year} = options;
+    const { limit, typeId, roleId, year } = options;
 
     // Raw Data
     const navSheet = await getNavigationSheets();
@@ -90,7 +88,7 @@ export const projectService = async (
           .filter((role) => role.project_id === project.id)
           .map((pr) => ({
             ...pr,
-            role: parseRoles.find((r) => r.id === pr.role_id),
+            role: parseRoles.find((r) => r.id === pr.id),
           })),
       }))
       .map((project) => ({
@@ -113,28 +111,26 @@ export const projectService = async (
       }))
       .sort((a, b) => Number(b.year) - Number(a.year));
 
-      if (year !== undefined) {``
-        project = project.filter((project) => Number(project.year) === year);
-      }
 
-      if (typeId) {
-        project = project.filter((project) => 
-            project.types.some((t) => t.type_id === typeId),
-        );
-      }
+    if (year !== undefined) {
+      project = project.filter((project) => Number(project.year) === year);
+    }
 
-      if (roleId) {
-        project = project.filter((project) => 
-            project.roles.some((r) => r.role_id === roleId),
-        );
-      }
+    if (typeId) {
+      project = project.filter((project) =>
+        project.types.some((t) => t.type_id === typeId),
+      );
+    }
 
-      if (limit !== undefined) {
-        project = project.slice(0, limit);
-      }
+    if (roleId) {
+      project = project.filter((project) =>
+        project.roles.some((r) => r.role_id === roleId),
+      );
+    }
 
-
-
+    if (limit !== undefined) {
+      project = project.slice(0, limit);
+    }
 
     return {
       projects: project,

@@ -37,7 +37,7 @@ export default function Education({ education, is_latest }: EducationProps) {
         </p>
 
         <div
-          className="text-xs xs:text-sm sm:text-base text-on-surface-variant leading-relaxed mb-4 sm:mb-5"
+          className="text-xs xs:text-sm sm:text-base text-on-surface-variant leading-relaxed mb-4 sm:mb-5 text-justify"
           dangerouslySetInnerHTML={{ __html: cleanDescription }}
         />
 
