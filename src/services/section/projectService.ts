@@ -113,7 +113,7 @@ export const projectService = async (
       }))
       .sort((a, b) => Number(b.year) - Number(a.year));
 
-      if (year !== undefined) {
+      if (year !== undefined) {``
         project = project.filter((project) => Number(project.year) === year);
       }
 

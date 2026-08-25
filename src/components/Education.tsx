@@ -1,10 +1,12 @@
 import { GraduationCap } from "lucide-react";
 import { formatPeriod } from "../helpers/helper";
+import DOMPurify from "dompurify";
 
 export default function Education({ education, is_latest }: EducationProps) {
   const { name, subname, description, start_date, end_date, result } = education;
 
   const period = formatPeriod(start_date, end_date);
+  const cleanDescription = DOMPurify.sanitize(description ?? "");
 
   return (
     <div className="relative pl-8 sm:pl-9 md:pl-10">
@@ -19,35 +21,31 @@ export default function Education({ education, is_latest }: EducationProps) {
             <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 md:w-[22px] md:h-[22px] text-on-background" />
           </div>
 
-          <span className="rounded-md font-mono text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 sm:py-1 border border-outline-variant text-on-surface-variant">
+          <span className="rounded-md font-mono text-[10px] xs:text-xs sm:text-sm px-1.5 sm:px-2 py-0.5 sm:py-1 border border-outline-variant text-on-surface-variant">
             {period}
           </span>
         </div>
 
         <div className="flex items-center gap-2 mb-1">
-          <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-semibold text-on-background leading-snug">
+          <h3 className="font-serif text-lg xs:text-xl sm:text-2xl font-semibold text-on-background leading-snug">
             {name}
           </h3>
-          {is_latest && (
-            <span className="font-mono text-[8px] sm:text-[9px] px-1.5 py-0.5 bg-on-background text-background uppercase tracking-wide flex-shrink-0">
-              Current
-            </span>
-          )}
         </div>
 
-        <p className="font-mono text-[11px] sm:text-xs uppercase tracking-wide text-on-surface-variant mb-3 sm:mb-4">
+        <p className="font-mono text-[11px] xs:text-xs sm:text-sm uppercase tracking-wide text-on-surface-variant mb-3 sm:mb-4">
           {subname}
         </p>
 
-        <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-4 sm:mb-5">
-          {description}
-        </p>
+        <div
+          className="text-xs xs:text-sm sm:text-base text-on-surface-variant leading-relaxed mb-4 sm:mb-5"
+          dangerouslySetInnerHTML={{ __html: cleanDescription }}
+        />
 
         <div className="pt-3 sm:pt-4 border-t border-outline-variant flex items-center justify-between">
-          <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wide text-on-surface-variant">
+          <span className="font-mono text-[10px] xs:text-xs sm:text-sm uppercase tracking-wide text-on-surface-variant">
             Result
           </span>
-          <span className="font-mono text-xs sm:text-sm font-semibold text-on-background">
+          <span className="font-mono text-xs xs:text-sm sm:text-base font-semibold text-on-background">
             {result}
           </span>
         </div>
