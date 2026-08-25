@@ -39,7 +39,7 @@ export default function PositionEntry({ position, is_latest }: PositionEntryProp
                 </p>
 
                 <div
-                    className="text-xs xs:text-sm sm:text-base text-on-surface-variant leading-relaxed [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-4 [&_li]:mb-1"
+                    className="text-xs xs:text-sm sm:text-base text-on-surface-variant leading-relaxed [&_ul]:list-disc [&_ul]:list-outside [&_ul]:ml-4 [&_li]:mb-1 text-justify"
                     dangerouslySetInnerHTML={{ __html: cleanDescription }}
                 />
 
