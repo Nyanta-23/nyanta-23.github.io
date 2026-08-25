@@ -38,25 +38,39 @@ export const certificationService = async (
 
     // Manage Data
 
+    // let certifications = parseCertifications
+    //   .map((certification) => ({ ...certification }))
+    //   .sort((a, b) => {
+    //     const aSortValue = a.end_date
+    //       ? dateToSortableNumber(parseYearMonth(a.end_date))
+    //       : Infinity;
+    //     const bSortValue = b.end_date
+    //       ? dateToSortableNumber(parseYearMonth(b.end_date))
+    //       : Infinity;
+
+    //     if (aSortValue !== bSortValue) {
+    //       return bSortValue - aSortValue;
+    //     }
+
+    //     return (
+    //       dateToSortableNumber(parseYearMonth(b.start_date)) -
+    //       dateToSortableNumber(parseYearMonth(a.start_date))
+    //     );
+    //   });
+
     let certifications = parseCertifications
       .map((certification) => ({ ...certification }))
-      .sort((a, b) => {
-        const aSortValue = a.end_date
-          ? dateToSortableNumber(parseYearMonth(a.end_date))
-          : Infinity;
-        const bSortValue = b.end_date
-          ? dateToSortableNumber(parseYearMonth(b.end_date))
-          : Infinity;
+      .sort(
+        (a, b) => {
+          const dateA = parseYearMonth(a.start_date);
+          const dateB = parseYearMonth(b.start_date);
 
-        if (aSortValue !== bSortValue) {
-          return bSortValue - aSortValue;
-        }
+          const timeA = dateA ? dateA.getTime() : 0;
+          const timeB = dateB ? dateB.getTime() : 0;
 
-        return (
-          dateToSortableNumber(parseYearMonth(b.start_date)) -
-          dateToSortableNumber(parseYearMonth(a.start_date))
-        );
-      });
+          return timeB - timeA;
+        },
+      );
 
     if (limit !== undefined) {
       certifications = certifications.slice(0, limit);

@@ -13,7 +13,6 @@ export default function App() {
 
   return (
     <>
-    
       <Preloader isLoading={isLoading} />
 
       <section className="font-mono bg-background text-primary">
