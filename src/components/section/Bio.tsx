@@ -1,4 +1,7 @@
+import DOMPurify  from "dompurify";
+
 export default function Bio({ bio, bio_eyebrow, bio_title }: BioProps) {
+const cleanBio = DOMPurify.sanitize(bio ?? "");
 
     return (
         <section className="py-16 px-6">
@@ -13,7 +16,7 @@ export default function Bio({ bio, bio_eyebrow, bio_title }: BioProps) {
 
                 <div
                     className="space-y-5 text-base sm:text-lg text-on-surface-variant leading-relaxed text-justify"
-                    dangerouslySetInnerHTML={{ __html: bio ?? "" }}
+                    dangerouslySetInnerHTML={{ __html: cleanBio }}
                 />
 
             </div>
