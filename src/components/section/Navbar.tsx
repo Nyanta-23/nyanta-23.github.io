@@ -50,15 +50,16 @@ export default function Navbar({ navAssets }: NavbarProps) {
 
 
         <div className="flex justify-self-center">
-          <a href={mainData?.cv_url ?? "#"} target="_blank" rel="noonper noreferrer"></a>
-          <Button
-            className="nav-btn px-3 text-sm sm:text-base sm:px-4 md:px-5 py-2 sm:py-3 md:py-4 bg-on-background rounded-md text-on-primary flex items-center justify-between gap-2 sm:gap-3 md:gap-4 cursor-pointer"
-          >
-            <span className="leading-none whitespace-nowrap">
-              DOWNLOAD CV
-            </span>
-            <Download className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 flex-shrink-0" />
-          </Button>
+          <a href={mainData?.cv_url ?? "#"} target="_blank" rel="noonper noreferrer" download>
+            <Button
+              className="nav-btn px-3 text-sm sm:text-base sm:px-4 md:px-5 py-2 sm:py-3 md:py-4 bg-on-background rounded-md text-on-primary flex items-center justify-between gap-2 sm:gap-3 md:gap-4 cursor-pointer"
+            >
+              <span className="leading-none whitespace-nowrap">
+                DOWNLOAD CV
+              </span>
+              <Download className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 flex-shrink-0" />
+            </Button>
+          </a>
         </div>
 
         <div className="flex items-center justify-self-end gap-4 xl:gap-6">
