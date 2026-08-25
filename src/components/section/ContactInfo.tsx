@@ -11,7 +11,7 @@ export default function ContactInfo({
     contact_details_title
 }: ContactInfoProps) {
     return (
-        <div className="border border-outline-variant p-5 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6">
+        <div className="border border-outline-variant bg-background-ghost/80 rounded-md hover:border-on-background hover:bg-background-ghost p-5 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6">
             <p className="font-mono text-xs uppercase tracking-wide text-on-surface-variant mb-2">
                 {contact_details_title}
             </p>

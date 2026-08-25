@@ -136,7 +136,7 @@ export default function ContactForm({
     };
 
     return (
-        <div className="border border-outline-variant p-5 sm:p-6 md:p-8">
+        <div className="border border-outline-variant p-5 sm:p-6 md:p-8 bg-background-ghost/80 rounded-md hover:border-on-background hover:bg-background-ghost">
             <p className="font-mono text-xs uppercase tracking-wide text-on-surface-variant mb-4 sm:mb-5 md:mb-6">
                 {contact_form_title}
             </p>

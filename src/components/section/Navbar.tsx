@@ -26,17 +26,11 @@ export default function Navbar({ navAssets }: NavbarProps) {
 
   const { mainData } = useMainData();
 
-  const [showNav, setShowNav] = useState<boolean>(false);
-  const [showHint, setShowHint] = useState(true);
+  const [showNav, setShowNav] = useState<boolean>(true);
 
   const logoSrc = getThemedAsset(theme, NyantaWhiteIcon, NyantaBlackIcon);
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setShowHint(false), 8000);
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   return (
     <section className="fixed top-0 px-10 py-2 border-outline-variant border-b-[1px] w-full bg-background z-50">
@@ -103,14 +97,13 @@ export default function Navbar({ navAssets }: NavbarProps) {
         <div className="nav:hidden fixed bottom-[4%] left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div
             className={`flex flex-col items-center transition-transform duration-300 ease-in-out
-            ${showNav ? "translate-y-0" : "translate-y-[calc(100%)]"}`}
+            ${showNav ? "translate-y-0" : "translate-y-[calc(100%+10px)]"}`}
           >
             <Button
               onClick={() => {
                 setShowNav(!showNav);
-                setShowHint(false);
               }}
-              className={`relative z-0 w-40 pt-2 pb-1.5 rounded-t-2xl flex items-center justify-center nav-btn shadow-elevated border border-outline-variant border-b-0 ${showHint ? "animate-pulse-bg" : "bg-surface-container-high"}`}
+              className={`relative z-0 w-40 pt-2 pb-1.5 rounded-t-2xl flex items-center justify-center nav-btn shadow-elevated border border-outline-variant border-b-0 bg-surface-container-high`}
             >
               {showNav ? (
                 <ChevronDown className="w-4 h-4 text-on-background" />
