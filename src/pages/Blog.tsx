@@ -20,8 +20,6 @@ export default function Blog() {
 
     // }, []);
 
-    
-    // console.log(blogData)
 
 
     return (
