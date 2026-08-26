@@ -88,7 +88,7 @@ export const projectService = async (
           .filter((role) => role.project_id === project.id)
           .map((pr) => ({
             ...pr,
-            role: parseRoles.find((r) => r.id === pr.id),
+            role: parseRoles.find((r) => r.id === pr.role_id),
           })),
       }))
       .map((project) => ({
