@@ -5,8 +5,6 @@ import DOMPurify from "dompurify";
 export default function PositionEntry({ position, is_latest }: PositionEntryProps) {
     const { employment_type, start_date, end_date, description, role } = position;
 
-    console.log(position);
-
     const period = formatPeriod(start_date, end_date);
     const cleanDescription = DOMPurify.sanitize(description ?? "");
 
